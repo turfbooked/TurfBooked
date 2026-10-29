@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Turfbooked</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@700&family=DM+Sans:wght@400;500;700&display=swap">
+<style>
+:root{--bg:#F2F5EF;--cd:#fff;--bd:#DDE4DA;--tx:#0B0F0C;--mu:#55625A;--ac:#C8FF2E;--at:#3B6B00;--on:#0B0F0C;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0B0F0C;--cd:#151C17;--bd:#232C26;--tx:#F4F7F2;--mu:#9AA79F;--at:#C8FF2E;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0B0F0C;--cd:#151C17;--bd:#232C26;--tx:#F4F7F2;--mu:#9AA79F;--at:#C8FF2E;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.4 'DM Sans',system-ui,sans-serif}
+#app{max-width:480px;height:100%;margin:0 auto;display:flex;flex-direction:column;position:relative}
+main{flex:1;overflow-y:auto;padding:16px 20px 24px}
+button{font:inherit;cursor:pointer;color:inherit}
+h1,h2{margin:0}
+h2{font-size:17px;margin:22px 0 10px}
+.d{font-family:Unbounded,system-ui,sans-serif;font-weight:700}
+.mu{color:var(--mu);font-size:13px}
+.cd{background:var(--cd);border:1px solid var(--bd);border-radius:20px;padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px}
+.dash{border-style:dashed}
+.b{min-height:44px;padding:0 18px;border:0;border-radius:12px;background:var(--ac);color:var(--on);font-weight:700}
+.ol{background:none;border:1px solid var(--at);color:var(--at)}
+.w{width:100%;min-height:52px}
+.ib{width:44px;height:44px;flex:none;border-radius:50%;background:var(--cd);border:1px solid var(--bd);display:grid;place-items:center}
+.pill{display:inline-block;border:1px solid var(--at);color:var(--at);border-radius:99px;padding:2px 10px;font-size:11px;font-weight:700}
+.pill.f{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.chip{min-height:44px;padding:0 14px;border-radius:12px;background:var(--cd);border:1px solid var(--bd);font-weight:700}
+.chip.on{background:var(--ac);color:var(--on);border-color:var(--ac)}
+.tg{border:1px solid var(--bd);background:var(--cd);border-radius:99px;padding:4px 10px;font-size:12px;font-weight:700}
+.rw{display:flex;gap:8px;flex-wrap:wrap}
+.av{width:44px;height:44px;flex:none;border-radius:50%;background:#1F3D2C;color:#C8FF2E;display:grid;place-items:center;font-weight:700}
+.big{width:72px;height:72px;font-size:24px;margin:0 auto 6px}
+.hero{background:var(--ac);color:#0B0F0C;border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.hero .lab{font-size:12px;font-weight:700;letter-spacing:1px}
+.hero .dk{background:#0B0F0C;color:#C8FF2E}
+.hero .ol{border-color:#0B0F0C;color:#0B0F0C}
+.in{display:block;width:100%;min-height:44px;border:1px solid var(--bd);border-radius:12px;background:var(--cd);color:var(--tx);padding:0 12px;font:inherit}
+label{display:block;margin:12px 0 4px}
+nav{display:flex;border-top:1px solid var(--bd);background:var(--cd)}
+.n{flex:1;min-height:60px;background:none;border:0;color:var(--mu);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:700}
+.n.on{color:var(--at)}
+svg{fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#sh:empty{display:none}
+.ov{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;z-index:5}
+.sh{width:100%;max-height:88%;overflow:auto;background:var(--bg);border-radius:24px 24px 0 0;padding:28px 20px 24px;position:relative}
+.x{position:absolute;top:10px;right:10px}
+#ts{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));background:var(--tx);color:var(--bg);padding:10px 16px;border-radius:99px;font-weight:700;z-index:9;max-width:90%}
+@keyframes up{from{opacity:0;transform:translateY(16px)}}
+@keyframes bn{0%{transform:translateY(-34px) rotate(0);animation-timing-function:cubic-bezier(.55,0,1,.45)}50%{transform:translateY(0) rotate(180deg);animation-timing-function:cubic-bezier(0,.55,.45,1)}100%{transform:translateY(-34px) rotate(360deg)}}
+@keyframes sh{0%,100%{transform:scale(.5);opacity:.15}50%{transform:scale(1);opacity:.35}}
+@keyframes rg{from{transform:scale(.3);opacity:.35}to{transform:scale(1.5);opacity:0}}
+@keyframes pl{0%{box-shadow:0 0 0 0 var(--at)}70%,100%{box-shadow:0 0 0 9px transparent}}
+@keyframes su{from{transform:translateY(100%)}}
+@keyframes fd{from{opacity:0}}
+@keyframes ti{from{opacity:0;transform:translate(-50%,14px)}}
+@keyframes pop{40%{transform:translateY(-4px) scale(1.25)}}
+@keyframes st{0%{transform:scale(.4) rotate(-30deg)}60%{transform:scale(1.35) rotate(10deg)}100%{transform:none}}
+@keyframes sw{from{opacity:0;transform:scale(.96)}}
+@keyframes inL{from{opacity:0;transform:translateX(-44px)}}
+@keyframes inR{from{opacity:0;transform:translateX(44px)}}
+@keyframes zin{from{opacity:0;transform:scale(.2)}}
+@keyframes spo{to{opacity:0;visibility:hidden}}
+@keyframes rl{from{transform:translateX(-150px) rotate(-331deg);opacity:0}}
+main.go>*{animation:up .5s cubic-bezier(.2,.7,.2,1) backwards;animation-delay:calc(var(--i,0)*50ms)}
+main.go .vs>:first-child{animation:inL .6s .1s cubic-bezier(.2,.8,.2,1) backwards}
+main.go .vs>:last-child{animation:inR .6s .1s cubic-bezier(.2,.8,.2,1) backwards}
+main.go .vs>span{animation:zin .5s .45s cubic-bezier(.3,1.5,.5,1) backwards}
+nav.go .n.on svg{animation:pop .45s .1s backwards}
+.hero{position:relative;overflow:hidden}
+.fx{position:absolute;right:12px;top:8px;width:80px;height:104px;pointer-events:none}
+.fx svg{position:absolute;left:14px;top:46px;animation:bn 1.4s infinite}
+.sd{position:absolute;left:20px;top:98px;width:40px;height:6px;border-radius:50%;background:#0B0F0C;animation:sh 1.4s infinite}
+.ring{position:absolute;left:0;top:28px;width:80px;height:80px;border:2px solid #0B0F0C;border-radius:50%;opacity:0;animation:rg 3s ease-out infinite}
+.r2{animation-delay:1.5s}
+.live::before{content:'';display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--at);margin-right:10px;animation:pl 1.6s infinite}
+.pp svg{animation:st .5s}
+.swap{animation:sw .4s cubic-bezier(.2,.8,.2,1)}
+#sh.new .ov{animation:fd .25s both}
+#sh.new .sh{animation:su .4s cubic-bezier(.2,.8,.2,1) both}
+#ts{animation:ti .35s cubic-bezier(.2,.8,.2,1)}
+.b,.chip,.ib,.n{transition:transform .15s,background-color .2s}
+.b:active,.chip:active,.ib:active{transform:scale(.94)}
+#sp{position:fixed;inset:0;z-index:20;background:#0B0F0C;color:#F4F7F2;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;animation:spo .5s 1.5s both}
+#sp .d{font-size:28px;animation:up .6s .5s backwards}
+#sp .d span{color:#C8FF2E}
+#sp .rb{animation:rl 1s cubic-bezier(.2,.7,.3,1) backwards}
+#sp svg{width:72px;height:72px;color:#0B0F0C}
+@media(max-width:360px){.fx{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition:none!important}.fx,#sp{display:none}}
+:root{--er:#B3261E}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--er:#FF8A80}}
+:root[data-theme=dark]{--er:#FF8A80}
+.dm{background:var(--cd);border:1px dashed var(--at);border-radius:14px;padding:10px 12px;font-size:12.5px;color:var(--mu)}
+.dm b{color:var(--at)}
+.pill.er{border-color:var(--er);color:var(--er)}
+.sp{display:flex;justify-content:space-between}
+.bar{height:10px;border-radius:99px;background:var(--bd);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--ac);border-radius:99px;animation:gw .8s cubic-bezier(.2,.8,.2,1)}
+@keyframes gw{from{width:0}}
+.pg{display:flex;gap:6px}.pg i{flex:1;height:6px;border-radius:99px;background:var(--bd)}.pg i.on{background:var(--ac)}
+.gd{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.pc{min-height:84px;border-radius:16px;background:var(--cd);border:1px solid var(--bd);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;padding:8px}
+.pc b{font-family:Unbounded,system-ui,sans-serif;font-size:16px}.pc span{font-size:11px;color:var(--mu)}
+.pc.on{background:var(--ac);border-color:var(--ac);color:var(--on)}.pc.on span{color:var(--on)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tile{min-height:52px;border-radius:14px;background:var(--cd);border:1px solid var(--bd);font-weight:700;padding:8px 12px;text-align:left}
+button.av{cursor:pointer;border:0}.av.sel{outline:3px solid var(--at);outline-offset:2px}
+.lk{background:none;border:0;padding:0;color:var(--at);text-decoration:underline;font:inherit;font-size:12px;cursor:pointer;min-height:24px}
+.wl{position:relative;overflow:hidden;margin:-16px -20px -24px;min-height:calc(100% + 40px);padding:24px 20px;display:flex;flex-direction:column;justify-content:flex-end;background:repeating-linear-gradient(#0E1A12 0 56px,#112017 56px 112px);color:#F4F7F2}
+.wl .ring{left:50%;top:18%;margin-left:-110px;width:220px;height:220px;border-color:#C8FF2E}
+.wl .bl{position:absolute;left:50%;top:calc(18% + 82px);margin-left:-26px;color:#0B0F0C;animation:bn 1.4s infinite}
+.wl .lk{color:#C8FF2E}
+
+@keyframes rx{from{transform:translateX(-260px)}}
+@keyframes rr{from{transform:rotate(-573deg)}}
+.wl .bl{left:50%;margin-left:-26px;animation:rx 1.9s cubic-bezier(.1,.65,.25,1) both}
+.wl .bl svg{display:block;animation:rr 1.9s cubic-bezier(.1,.65,.25,1) both;will-change:transform}
+.wl .bl::after{content:'';position:absolute;left:6px;right:6px;bottom:-6px;height:7px;border-radius:50%;background:rgba(0,0,0,.45);filter:blur(2px)}
+.pt{position:relative;aspect-ratio:5/6;border-radius:20px;overflow:hidden;background:repeating-linear-gradient(#143022 0 12.5%,#0F2619 12.5% 25%);border:1px solid var(--bd)}
+.pt svg{position:absolute;inset:0;width:100%;height:100%;stroke:rgba(244,247,242,.5);stroke-width:.5;fill:none}
+.sp2{position:absolute;transform:translate(-50%,-50%);width:46px;height:46px;padding:0;border-radius:50%;border:2px solid rgba(244,247,242,.7);background:rgba(11,15,12,.55);color:#F4F7F2;font:700 11px Unbounded,system-ui,sans-serif;display:grid;place-items:center;transition:background .2s,transform .2s,box-shadow .2s}
+.sp2.on{background:#C8FF2E;color:#0B0F0C;border-color:#C8FF2E;transform:translate(-50%,-50%) scale(1.1);box-shadow:0 0 0 6px rgba(200,255,46,.25)}
+.sp2.pp2{animation:spop .45s cubic-bezier(.3,1.6,.5,1)}
+@keyframes spop{from{transform:translate(-50%,-50%) scale(.6)}}
+.fts{display:grid;grid-template-columns:1fr 1fr;gap:12px;text-align:center}
+.ftb{width:100%;aspect-ratio:3/4;margin-top:6px;border-radius:20px;background:var(--cd);border:2px solid var(--bd);display:grid;place-items:center;color:var(--mu);transition:transform .15s,border-color .2s,background .2s,color .2s}
+.ftb:active{transform:scale(.96)}
+.ftb.on{border-color:var(--ac);background:rgba(200,255,46,.16);color:var(--at)}
+:root{--ac2:#6C5CE7}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0A1020;--cd:#121A2E;--bd:#222C46}}
+:root[data-theme=dark]{--bg:#0A1020;--cd:#121A2E;--bd:#222C46}
+#hd{display:none;justify-content:space-between;align-items:center;padding:10px 20px 0}
+.lgb{background:none;border:0;min-height:44px;font-size:18px;padding:0}
+.bdg{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;border-radius:9px;background:var(--ac2);color:#fff;font:700 10px/18px 'DM Sans';text-align:center;padding:0 4px;font-style:normal}
+.ht{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;min-height:108px;padding:14px;border-radius:20px;background:var(--cd);border:1px solid var(--bd);color:var(--tx)}
+.ht svg{color:var(--at)}.ht:first-child{grid-column:1/-1;background:var(--ac2);border-color:var(--ac2);color:#fff}.ht:first-child svg,.ht:first-child .mu{color:#fff}
+.dc{background:var(--cd);border:1px solid var(--bd);border-radius:24px;padding:22px 16px;text-align:center;touch-action:pan-y;user-select:none}
+.sq{width:96px;height:96px;border-radius:24px;overflow:hidden;display:grid;place-items:center;color:#C8FF2E;font:700 30px Unbounded,sans-serif;margin:0 auto}
+.sq.sm{margin:0;flex:none}.sq img{width:100%;height:100%;object-fit:cover}
+.pcd{position:relative;background:var(--cd);border:2px solid var(--ac);border-radius:28px;padding:22px 18px}
+.pcd .sq{margin:0}.pen{position:absolute;top:14px;right:14px}
+.lv{display:flex;align-items:center;gap:14px;text-align:left;padding:10px 14px;border-radius:16px;background:var(--cd);border:1px solid var(--bd);min-height:64px;color:var(--tx)}
+.lv.on{background:var(--ac);border-color:var(--ac);color:#0B0F0C}.lv.on .mu{color:#0B0F0C}
+.stp{display:flex;align-items:flex-end;gap:3px;height:32px}.stp i{width:8px;border-radius:3px;background:var(--bd)}.stp i.o{background:var(--at)}.lv.on .stp i.o{background:#0B0F0C}
+.dy{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dy .chip{padding:0;min-width:0}
+.tl{display:flex;flex-direction:column;gap:2px;text-align:left;min-height:64px}
+.tl.on{background:var(--ac);border-color:var(--ac);color:#0B0F0C}.tl .mu,.tl.on .mu{color:inherit;font-weight:400}
+</style>
+
+</head>
+<body>
+<div id="app"><header id="hd"></header><main></main><nav aria-label="Main"></nav><div id="sh"></div></div>
+<div id="ts" role="status" aria-live="polite" hidden></div>
+<div id="sp" aria-hidden="true"></div>
+<script>
+const $=s=>document.querySelector(s);
+const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const H=n=>(n>12?n-12:n)+(n<12?' AM':' PM');
+const T=[{id:'t1',n:'Turf One Arena',d:1.2,in:1,s:[19,20,21],p:2400},{id:'t2',n:'Goal Box Indoor',d:2.8,in:1,s:[18,20],p:2000},{id:'t3',n:'Kickoff Dome',d:3.5,in:1,s:[20,21,22],p:2800},{id:'t4',n:'Green Park Outdoor',d:0.9,in:0,s:[18,19,20,21],p:1600}];
+const P=[{id:'p1',n:'Aarav K.',pos:'Midfielder',foot:'Right foot',lv:'Competitive',pl:'Weekday evenings',tm:'Night Owls FC',pf:['t1','t2']},
+{id:'p2',n:'Meera J.',pos:'Goalkeeper',foot:'Left foot',lv:'Casual',pl:'Weekends',tm:'Night Owls FC',pf:['t1']},
+{id:'p3',n:'Dev P.',pos:'Striker',foot:'Right foot',lv:'Competitive',pl:'Weekends',tm:'No team yet',pf:['t2','t3']},
+{id:'p4',n:'Sana R.',pos:'Defender',foot:'Right foot',lv:'Casual',pl:'Weekday evenings',tm:'Blue Street United',pf:['t1']},
+{id:'p5',n:'Kabir T.',pos:'Winger',foot:'Left foot',lv:'Competitive',pl:'Late nights',tm:'Red Line FC',pf:['t3']}];
+const C=[{id:'c1',n:'Blue Street United',col:'#2A3A5C',pf:['t1','t2']},{id:'c2',n:'Red Line FC',col:'#6B2230',pf:['t3']},{id:'c3',n:'Street Kings FC',col:'#4A3A12',pf:['t2']}];
+const POS=['Goalkeeper','Defender','Midfielder','Winger','Striker'];
+const S={ib:[{id:'i0',k:'ch',who:'Blue Street United',dir:'in',st:'Pending',sm:1,un:1,msgs:[{f:'them',t:'Sample challenge: we’d like a 5v5 this weekend. Up for it?',ts:Date.now()}]}],mt2:[{id:'m0',n:'Night Owls FC',own:1,list:1,mem:[{n:'You',pos:'Midfielder',me:1},{n:'Aarav K.',pos:'Midfielder'},{n:'Meera J.',pos:'Goalkeeper'}]}],dx:{},tr:null,sb:{em:'',st:''},dm:'mate',ob:{step:'welcome',cc:'+91',ph:'',acct:'',lg:0,n:'',av:0,age:'',lang:'English',pos:[],prim:'',flex:1,foot:'',lvl:'',fmt:[],int:'',frq:'',area:'',rad:15,days:[],slots:[],bud:'',look:'Both',done:0},tab:'play',gj:{},fl:{f:'',sk:'',d:'',c:''},or:{fmt:'5v5',win:[],dist:'5',sk:'',it:'',bud:'',bk:'No'},op:0,view:null,sh:null,top:1,mm:{o:null,h:20},pr:{n:1,h:20},
+me:{n:'Riya S.',pos:'Midfielder',lv:'Competitive'},fr:['p1','p2'],tm:['p1','p2'],pf:['t1'],mt:[],
+rq:[{id:'r1',t:'Street Kings FC',n:2,h:20,u:'t1'},{id:'r2',t:'Midnight Strikers',n:1,h:20,u:'t2'}]};
+const K=['ib','mt2','dx','tr','sb','me','fr','tm','pf','mt','rq','ob','gj','or','op'];
+try{const o=JSON.parse(localStorage.getItem('tb'));if(o)K.forEach(k=>o[k]&&(S[k]=o[k]))}catch(x){}
+const save=()=>{try{localStorage.setItem('tb',JSON.stringify(Object.fromEntries(K.map(k=>[k,S[k]]))))}catch(x){}};
+const I={play:'<path d="M4 11l8-7 8 7v9H4z"/>',teams:'<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M17 5a3.5 3.5 0 010 7M22 20c0-3-1.5-5-4-5.7"/>',turfs:'<path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',me:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"/>',back:'<path d="M15 5l-7 7 7 7"/>',star:'<path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>'};
+const ic=(p,s=22,f)=>`<svg width="${s}" height="${s}" viewBox="0 0 24 24" aria-hidden="true"${f?' style="fill:currentColor"':''}>${p}</svg>`;
+const tn=id=>T.find(t=>t.id==id),pl=id=>P.find(p=>p.id==id),byd=(a,b)=>a.d-b.d;
+const ini=n=>n.split(' ').slice(0,2).map(w=>w[0]).join('').toUpperCase();
+const av=(n,c,b)=>`<div class="av${b?' big':''}"${c?` style="background:${c};color:#fff"`:''}>${e(ini(n))}</div>`;
+const tg=x=>`<span class="tg">${e(x)}</span>`;
+const pfs=a=>a.map(x=>tg(tn(x).n)).join('');
+const hrs=(k,cur)=>`<div class="rw">${[18,19,20,21,22].map(h=>`<button class="chip${h==cur?' on':''}" data-a="${k}" data-v="${h}" aria-pressed="${h==cur}">${H(h)}</button>`).join('')}</div>`;
+const back=t=>`<div style="display:flex;align-items:center;gap:12px;margin-bottom:16px"><button class="ib" data-a="back" aria-label="Back">${ic(I.back,20)}</button><h1 class="d" style="font-size:18px">${t}</h1></div>`;
+const rw=(p,x,s)=>`<div class="cd">${av(p.n)}<div style="flex:1"><b>${e(p.n)}</b><div class="mu">${s||p.pos+' · '+p.lv}</div></div>${x||''}</div>`;
+const view=id=>`<button class="b ol" data-a="pf" data-v="${id}">View</button>`;
+
+// Turf logic: shared preferred turf that is open, else nearest open indoor turf
+function pick(c,h){const ok=t=>t.s.includes(h);
+const sh=T.filter(t=>S.pf.includes(t.id)&&c.pf.includes(t.id)&&ok(t)).sort(byd)[0];
+if(sh)return{t:sh,w:'SHARED PICK',x:'Both teams listed this turf.'};
+const n=T.filter(t=>t.in&&ok(t)).sort(byd)[0];
+return n&&{t:n,w:'NEAREST OPEN INDOOR TURF',x:'No shared turf is open at this time, so we picked the closest indoor one.'}}
+
+function play(){const o=4-S.tm.length;
+const rq=feed().map(r=>{const t=tn(r.u);return `<div class="cd"><div style="flex:1"><span class="pill">NEED ${r.n}</span><div style="font-weight:700;margin-top:6px">${e(r.t)}</div><div class="mu">${H(r.h)} · ${t.n} · ${t.d} km</div></div>${r.me?'<span class="mu">Your post</span>':r.j?'<span class="mu">Joined</span>':`<button class="b" data-a="join" data-v="${r.id}">Join</button>`}</div>`}).join('');
+const mt=S.mt.map((m,i)=>`<div class="cd"><div style="flex:1"><div style="font-weight:700">${m.k=='v'?'Night Owls FC vs '+e(m.w):'Playing with '+e(m.w)}</div><div class="mu">${H(m.h)} · ${tn(m.u).n}</div></div><button class="b ol" data-a="hub" data-v="${i}">Open</button></div>`).join('');
+return `<h1 class="d" style="font-size:26px;line-height:1.15;margin:4px 0 0">Hey ${e(S.me.n.split(' ')[0])}, who’s playing today?</h1>
+<div class="hero"><div class="fx" aria-hidden="true"><i class="ring"></i><i class="ring r2"></i>${BALL}<i class="sd"></i></div><div class="lab">YOUR TEAM · 5-A-SIDE</div><div class="d" style="font-size:22px">Night Owls FC</div><div>${o?o+' spot'+(o>1?'s':'')+' open':'Squad full'}</div><div class="rw"><button class="b dk" data-a="match">Find an opponent</button>${o?'<button class="b ol" data-a="post">Need players</button>':''}</div></div>
+${homeX()}${mt?'<h2>Your matches</h2>'+mt:''}<h2 class="live" id="fd">Need a player now</h2>${rq||'<div class="cd mu">No open games inside your radius yet. Widen it in your profile.</div>'}`}
+
+function teams(){const o=4-S.tm.length;
+const sq=rw({n:S.me.n,pos:S.me.pos,lv:S.me.lv},'<span class="mu">You</span>')+S.tm.map(i=>rw(pl(i),view(i))).join('');
+const op=o>0?`<div class="cd dash"><div style="flex:1"><b>${o} open spot${o>1?'s':''}</b><div class="mu">Add a friend to your squad</div></div><button class="b" data-a="am">Add</button></div>`:'';
+return `<h1 class="d" style="font-size:22px;margin:4px 0">Night Owls FC</h1><div class="mu">Your squad · ${5-o} of 5</div><h2>Squad</h2>${sq}${op}
+<h2>Teams near you</h2>${C.map(c=>`<div class="cd">${av(c.n,c.col)}<div style="flex:1"><b>${c.n}</b><div class="rw" style="margin-top:6px">${pfs(c.pf)}</div></div><button class="b ol" data-a="opp" data-v="${c.id}">Challenge</button></div>`).join('')}
+<h2>Players</h2>${P.map(p=>rw(p,view(p.id),p.pos+' · '+p.tm)).join('')}`}
+
+function turfs(){return `<h1 class="d" style="font-size:22px;margin:4px 0">Nearby turfs</h1><div class="mu">Star your favourites. Challenges try your team’s picks first.</div><h2></h2>`+[...T].sort(byd).map(t=>{const f=S.pf.includes(t.id);return `<div class="cd" style="align-items:flex-start"><div style="flex:1"><b>${t.n}</b><div class="mu">${t.d} km · ${t.in?'Indoor':'Outdoor'}</div><div class="rw" style="margin-top:8px">${t.s.map(h=>tg(H(h))).join('')}</div></div><button class="ib${S.pp==t.id&&f?' pp':''}" data-a="star" data-v="${t.id}" aria-pressed="${f}" aria-label="${f?'Remove from':'Add to'} preferred turfs" style="${f?'color:var(--at)':''}">${ic(I.star,20,f)}</button></div>`}).join('')}
+
+function me(){const m=S.me,o=(a,v)=>a.map(x=>`<option${x==v?' selected':''}>${x}</option>`).join('');
+return `<div style="display:grid;place-items:center;gap:4px;margin:4px 0 8px">${av(m.n,0,1)}<h1 class="d" style="font-size:22px">${e(m.n)}</h1><div class="mu">${m.pos} · ${m.lv}</div></div>
+<h2>Your details</h2>
+<label class="mu" for="f1">Name</label><input id="f1" class="in" data-f="n" value="${e(m.n)}" maxlength="20">
+<label class="mu" for="f2">Position</label><select id="f2" class="in" data-f="pos">${o(POS,m.pos)}</select>
+<label class="mu" for="f3">Level</label><select id="f3" class="in" data-f="lv">${o(['Casual','Competitive'],m.lv)}</select>
+<h2>Preferred turfs</h2><div class="rw">${S.pf.length?pfs(S.pf):'<span class="mu">None yet. Star turfs in the Turfs tab.</span>'}</div>
+<p class="mu" style="margin-top:20px">Your name, photo, team and preferred turfs are visible to every player on Turfbooked.</p><h2>Account</h2><div class='rw'><button class='b ol' data-a='ed' data-v='s7'>Edit football profile</button><button class='b ol' data-a='so'>Sign out</button><button class='b ol' data-a='del'>Delete saved data</button></div><p class='mu'>Demo: signing out keeps your profile in this browser, deleting clears it. Real accounts, recovery and deletion need a server.</p>`}
+
+function match(){const m=S.mm;
+if(!m.o)return back('Find an opponent')+'<div class="mu" style="margin-bottom:12px">Pick a team to challenge.</div>'+C.map(c=>`<div class="cd">${av(c.n,c.col)}<div style="flex:1"><b>${c.n}</b><div class="rw" style="margin-top:6px">${pfs(c.pf)}</div></div><button class="b" data-a="opp" data-v="${c.id}">Choose</button></div>`).join('');
+const c=C.find(x=>x.id==m.o),r=pick(c,m.h);
+return back('Match setup')+`<div class="vs" style="display:flex;align-items:flex-start;justify-content:space-around;margin:8px 0 20px;text-align:center"><div>${av('Night Owls FC','#1F3D2C',1)}<b>Night Owls FC</b></div><span class="d mu" style="margin-top:24px">VS</span><div>${av(c.n,c.col,1)}<b>${c.n}</b></div></div>
+<div class="mu">Pick a time</div><div style="margin:8px 0 16px">${hrs('hr',m.h)}</div>
+${r?`<div class="cd swap" style="display:block;border-color:var(--at)"><span class="pill f">${r.w}</span><div class="d" style="font-size:20px;margin-top:10px">${r.t.n}</div><div class="mu" style="margin-top:4px">${r.t.in?'Indoor':'Outdoor'} · ${r.t.d} km away</div><p class="mu" style="margin:10px 0 0">${r.x}</p></div><button class="b w" data-a="sv">Send challenge</button>`:'<div class="cd">No indoor turf is open at this time. Try another slot.</div>'}`}
+
+function sheet(){const s=S.sh;if(!s)return'';let b;
+if(s.k=='pf'){const p=pl(s.v),f=S.fr.includes(p.id),m=S.tm.includes(p.id);
+b=`<div style="display:grid;place-items:center;gap:6px;text-align:center">${av(p.n,0,1)}<h2 class="d" style="font-size:22px;margin:0">${e(p.n)}</h2><div class="mu">${p.tm}</div><div class="rw" style="justify-content:center">${tg(p.pos)}${tg(p.foot)}${tg(p.lv)}</div></div>
+<h2>Plays</h2><div>${p.pl}</div><h2>Preferred turfs</h2><div class="rw">${pfs(p.pf)}</div>
+<div style="margin-top:20px">${!f?`<button class="b w" data-a="fr" data-v="${p.id}">Add friend</button>`:m?'<div class="mu">In your squad</div>':S.tm.length<4?`<button class="b w" data-a="tm" data-v="${p.id}">Add to squad</button>`:'<div class="mu">Your squad is full</div>'}</div>`}
+else if(s.k=='post'){const o=4-S.tm.length,r=pick({pf:S.pf},S.pr.h);
+b=`<h2 class="d" style="font-size:20px;margin:0 0 12px">Need players</h2><div class="mu">How many?</div><div class="rw" style="margin:8px 0 16px">${[1,2,3,4].filter(n=>n<=o).map(n=>`<button class="chip${n==S.pr.n?' on':''}" data-a="pn" data-v="${n}" aria-pressed="${n==S.pr.n}">${n}</button>`).join('')}</div><div class="mu">Time</div><div style="margin:8px 0 16px">${hrs('ph',S.pr.h)}</div>${r?`<div class="cd"><div style="flex:1"><b>${r.t.n}</b><div class="mu">${r.t.d} km · ${r.w.toLowerCase()}</div></div></div><button class="b w" data-a="sp">Post request</button>`:'<div class="mu">No indoor turf is open then. Try another time.</div>'}`}
+else if(s.k=='gm'){b=gmx(s.v)}else if(s.k=='pay'){const m=S.mt[S.hi],pp=tn(m.u).p/10,n=s.w=='all'?5-pc(m):1;
+b=`<h2 class='d' style='font-size:20px;margin:0 0 12px'>${s.w=='all'?'Cover unpaid shares':'Pay your share'}</h2>${DM('No payment gateway is connected. No money moves and no real booking is made.')}<div class='cd' style='display:block;margin-top:12px;line-height:1.9'><div class='sp'><span>${n} × ₹${pp} share</span><b>₹${n*pp}</b></div><div class='sp'><span>Fees (sample)</span><b>₹0</b></div><div class='sp'><span>You pay</span><b>₹${n*pp}</b></div></div><p class='mu'>Refund policy (sample): full refund if you cancel before the deadline or if the venue booking fails.</p><button class='b w' data-a='pay' data-v='ok'>Demo: payment succeeds</button><button class='b ol w' style='margin-top:8px' data-a='pay' data-v='no'>Demo: payment fails</button>`}
+else{const f=S.fr.filter(i=>!S.tm.includes(i));
+b=`<h2 class="d" style="font-size:20px;margin:0 0 12px">Add to squad</h2>`+(f.length?f.map(i=>{const p=pl(i);return rw(p,`<button class="b" data-a="tm" data-v="${i}">Add</button>`,p.pos)}).join(''):'<p class="mu">All your friends are in already. Find more players in the Teams tab and add them as friends.</p>')}
+return `<div class="ov" data-a="close"><div class="sh" data-a="noop" role="dialog" aria-modal="true" aria-label="Details"><button class="ib x" data-a="close" aria-label="Close">${ic(I.x,20)}</button>${b}</div></div>`}
+
+const RM=matchMedia('(prefers-reduced-motion: reduce)');let wasOpen=0;
+const BALL='<svg width="52" height="52" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#fff"/><path d="M12 7.5l3.6 2.6-1.4 4.2H9.8L8.4 10.1z" fill="#0B0F0C" stroke="none"/><path d="M12 7.5V3M15.6 10.1l4.2-1.4M14.2 14.3l2.6 3.6M9.8 14.3l-2.6 3.6M8.4 10.1L4.2 8.7" stroke-width="1.4"/></svg>';
+$('#sp').innerHTML=`<div class="rb">${BALL}</div><div class="d">turf<span>booked</span></div>`;
+function burst(){if(RM.matches)return;const L=document.createElement('div');L.setAttribute('aria-hidden','true');L.style.cssText='position:fixed;left:50%;top:60%;pointer-events:none;z-index:9';document.body.append(L);
+for(let i=0;i<24;i++){const p=document.createElement('i'),a=Math.random()*6.28,d=80+Math.random()*130;p.style.cssText=`position:absolute;width:8px;height:8px;border-radius:${i%2?'50%':'2px'};background:${['#C8FF2E','#0B0F0C','#3B6B00','#F2B84B'][i%4]}`;L.append(p);
+p.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${Math.cos(a)*d}px,${Math.sin(a)*d-70}px) rotate(${Math.random()*540}deg) scale(.6)`,opacity:0}],{duration:900+Math.random()*400,easing:'cubic-bezier(.2,.7,.3,1)',fill:'forwards'})}
+setTimeout(()=>L.remove(),1500)}
+const AVC=['#1F3D2C','#2A3A5C','#6B2230','#4A3A12','#3B2A5C'];
+const PS=[['GK','Goalkeeper'],['CB','Centre-back'],['FB','Full-back'],['CDM','Defensive mid'],['CM','Central mid'],['CAM','Attacking mid'],['W','Winger'],['ST','Striker'],['ANY','Flexible']];
+const PM={GK:'Goalkeeper',CB:'Defender',FB:'Defender',CDM:'Midfielder',CM:'Midfielder',CAM:'Midfielder',W:'Winger',ST:'Striker',ANY:'Midfielder'};
+const CC=[['+91','IN'],['+1','US'],['+44','UK'],['+971','AE'],['+65','SG'],['+61','AU']];
+const ST=['s1','s2','s3','s4','s5','s6','s7'];
+let rtEnd=0,rtI;
+const opts=(a,v)=>a.map(x=>`<option${x==v?' selected':''}>${x}</option>`).join('');
+const cg=(k,a,m,u)=>`<div class='rw'>${a.map(x=>{const on=m?S.ob[k].includes(x):S.ob[k]==x;return `<button class='chip${on?' on':''}' data-a='cs' data-v='${k}|${x}' aria-pressed='${on}'>${x}${u||''}</button>`}).join('')}</div>`;
+const sec=t=>`<div class='mu' style='margin:16px 0 6px'>${t}</div>`;
+const DM=t=>`<div class='dm' role='note'><b>Demo mode.</b> ${t}</div>`;
+const obb=(to,t)=>`<div style='display:flex;align-items:center;gap:12px;margin-bottom:16px'><button class='ib' data-a='os' data-v='${to}' aria-label='Back'>${ic(I.back,20)}</button><span class='d' style='font-size:14px'>${t}</span></div>`;
+const wz=(i,t,s,b,skip)=>`<div class='pg' role='progressbar' aria-valuemin='1' aria-valuemax='7' aria-valuenow='${i}' aria-label='Step ${i} of 7'>${ST.map((x,j)=>`<i${j<i?` class='on'`:''}></i>`).join('')}</div><div class='mu' style='margin:10px 0 4px'>Step ${i} of 7</div><h1 class='d' style='font-size:22px'>${t}</h1><p class='mu' style='margin:6px 0 14px'>${s}</p>${b}<div class='rw' style='margin-top:22px;flex-wrap:nowrap'>${i>1?`<button class='b ol' data-a='os' data-v='${ST[i-2]}'>Back</button>`:''}${skip?`<button class='b ol' data-a='os' data-v='${ST[i]}'>Skip</button>`:''}<button class='b' style='flex:1' data-a='${i==7?'fin':'nx'}' data-v='${i}'>${i==7?'Complete profile':'Next'}</button></div>`;
+const rv=(s,t,v)=>`<div class='cd'><div style='flex:1'><div class='mu'>${s}</div><div>${v||`<span class='mu'>Not set</span>`}</div></div><button class='b ol' data-a='os' data-v='${t}'>Edit</button></div>`;
+const SP=[['ST',50,10],['W',14,24],['W',86,24],['CAM',50,32],['CM',50,47],['CDM',50,61],['FB',14,73],['FB',86,73],['CB',50,76],['GK',50,92]];
+const pitch=o=>`<div class='pt'><svg viewBox='0 0 100 120' preserveAspectRatio='none' aria-hidden='true'><rect x='4' y='4' width='92' height='112'/><path d='M4 60H96'/><circle cx='50' cy='60' r='11'/><rect x='24' y='4' width='52' height='18'/><rect x='38' y='4' width='24' height='7'/><rect x='24' y='98' width='52' height='18'/><rect x='38' y='109' width='24' height='7'/></svg>${SP.map(([c,x,y])=>{const on=o.pos.includes(c);return `<button class='sp2${on?' on':''}${on&&S.pp==c?' pp2':''}' style='left:${x}%;top:${y}%' data-a='pos' data-v='${c}' aria-pressed='${on}' aria-label='${PS.find(p=>p[0]==c)[1]}'>${c}</button>`}).join('')}</div>`;
+const FOOT=l=>`<svg viewBox='0 0 60 120' width='80' height='160' aria-hidden='true'${l?` style='transform:scaleX(-1)'`:''}><path d='M24 4C36 2 48 10 50 28C52 46 46 60 46 78C46 100 42 114 30 116C18 116 14 102 15 84C16 66 8 52 8 34C8 16 14 6 24 4Z' fill='currentColor' fill-opacity='.22'/><g fill='currentColor' stroke='none'><circle cx='20' cy='86' r='2.4'/><circle cx='36' cy='86' r='2.4'/><circle cx='22' cy='104' r='2.4'/><circle cx='34' cy='104' r='2.4'/><circle cx='18' cy='20' r='2.4'/><circle cx='34' cy='18' r='2.4'/></g><path d='M20 34H38M19 44H40M20 54H40' stroke-width='1.6'/></svg>`;
+function onb(){const o=S.ob,st=o.step,f=(t,id)=>`<label class='mu' for='${id}'>${t}</label>`;
+if(st=='welcome')return `<div class='wl'><i class='ring'></i><i class='ring r2'></i><div class='bl'>${BALL}</div><div><div class='d' style='font-size:34px;line-height:1.1'>turf<span style='color:#C8FF2E'>booked</span></div><p class='d' style='font-size:15px;line-height:1.4;margin:10px 0 24px;color:#C8FF2E'>Just focus on your game.</p><button class='b w' data-a='gs'>Get started</button><button class='b ol w' style='margin-top:10px;color:#C8FF2E;border-color:#C8FF2E' data-a='li'>Log in</button><p style='margin:16px 0 0;font-size:12px;color:#9AA79F'>By continuing you agree to the <button class='lk' data-a='lk'>Terms of Service</button> and <button class='lk' data-a='lk'>Privacy Policy</button>.</p></div></div>`;
+if(st=='phone')return obb('welcome',o.lg?'Log in':'Create account')+`<h1 class='d' style='font-size:24px'>What’s your number?</h1><p class='mu' style='margin:6px 0 16px'>We use it to sign you in and send match updates. It’s never shown to other players.</p>${f('Phone number','ph')}<div style='display:flex;gap:8px'><select class='in' style='width:104px;flex:none' data-k='cc' aria-label='Country code'>${CC.map(([c,n])=>`<option value='${c}'${c==o.cc?' selected':''}>${n} ${c}</option>`).join('')}</select><input id='ph' class='in' type='tel' inputmode='numeric' autocomplete='tel-national' placeholder='98765 43210' value='${e(o.ph)}' data-k='ph'></div><div id='er' class='mu' role='alert' style='color:var(--er);min-height:20px;margin:6px 0 10px'></div><button class='b w' data-a='sendotp'>Send OTP</button><div style='margin-top:16px'>${DM('No SMS is sent and no CAPTCHA runs. A real launch needs an SMS/OTP provider, a server-side CAPTCHA check and rate limits.')}</div>`;
+if(st=='otp')return obb('phone','Verify')+`<h1 class='d' style='font-size:24px'>Enter the 6-digit code</h1><p class='mu' style='margin:6px 0 16px'>Code for ${o.cc} ${e(o.ph)}. <button class='lk' style='font-size:13px' data-a='os' data-v='phone'>Edit number</button></p><div class='rw' style='flex-wrap:nowrap;justify-content:space-between' role='group' aria-label='One-time code'>${[1,2,3,4,5,6].map(n=>`<input class='in ot' style='width:46px;padding:0;text-align:center;font-size:20px;font-weight:700' inputmode='numeric' autocomplete='${n==1?'one-time-code':'off'}' maxlength='1' data-o aria-label='Digit ${n}'>`).join('')}</div><div id='er' class='mu' role='alert' style='color:var(--er);min-height:20px;margin:8px 0'></div><button id='vb' class='b w' data-a='vf'>Verify</button><div id='rs' class='mu' style='margin-top:14px;text-align:center'></div><div style='margin-top:16px'>${DM('Any 6 digits will pass. Real verification, expiry and attempt limits must run on a server.')}</div>`;
+if(st=='s1')return wz(1,'Let’s set up your profile','Only your display name and avatar are visible to others.',`${f('Display name','dn')}<input id='dn' class='in' data-k='n' value='${e(o.n)}' maxlength='20' autocomplete='nickname' placeholder='What should players call you?'>${sec('Avatar')}<div class='rw' style='align-items:center;flex-wrap:nowrap'><div class='sq sm' style='background:${AVC[o.av]||AVC[0]}'>${o.img?`<img src='${o.img}' alt='Avatar preview'>`:e(ini(o.n||'You'))}</div><div style='flex:1'><label class='b ol' style='display:flex;align-items:center;justify-content:center;margin:0' for='avf'>${o.img?'Replace photo':'Upload photo'}</label><input id='avf' type='file' accept='image/*' hidden>${o.img?`<button class='lk' data-a='avr' style='margin-top:6px'>Remove photo</button>`:''}</div></div><div id='er' class='mu' style='color:var(--er)' role='alert'></div><div class='mu' style='margin:10px 0 4px'>Or pick a colour</div><div class='rw'>${AVC.map((c,j)=>`<button class='av${o.av==j?' sel':''}' style='background:${c};color:#fff' data-a='avs' data-v='${j}' aria-label='Avatar colour ${j+1}' aria-pressed='${o.av==j}'>${e(ini(o.n||'You'))}</button>`).join('')}</div>${f('Age (optional, never shown publicly)','ag')}<input id='ag' class='in' type='number' inputmode='numeric' min='13' max='80' data-k='age' value='${e(o.age)}' placeholder='e.g. 19'>${f('Language','lg')}<select id='lg' class='in' data-k='lang'>${opts(['English','हिन्दी','ಕನ್ನಡ','தமிழ்','తెలుగు','मराठी'],o.lang)}</select>`);
+if(st=='s2')return wz(2,'Where do you play?','Tap your spot on the pitch. Pick every position you’re happy in.',`${pitch(o)}<div class='mu' style='margin:10px 0 0'>${o.pos.length?'Selected: '+[...new Set(o.pos)].map(c=>PS.find(p=>p[0]==c)[1]).join(', '):'Nothing selected yet. You can skip this.'}</div><button class='chip w${o.pos.includes('ANY')?' on':''}' style='margin-top:10px' data-a='pos' data-v='ANY' aria-pressed='${o.pos.includes('ANY')}'>Flexible, I play anywhere</button>${o.pos.length?sec('Primary position')+`<div class='rw'>${[...new Set(o.pos)].map(c=>`<button class='chip${o.prim==c?' on':''}' data-a='prim' data-v='${c}' aria-pressed='${o.prim==c}'>${c}</button>`).join('')}</div>`:''}<label class='mu' style='display:flex;align-items:center;gap:10px;margin-top:16px'><input type='checkbox' data-a='flx'${o.flex?' checked':''} style='width:22px;height:22px;accent-color:var(--at)'>I’m comfortable playing other positions</label>`,1);
+if(st=='s3')return wz(3,'Which foot do you play with?','You can change this later. It’s only a hint for positions and balanced teams.',`<div class='fts'>${[['L','Left',1],['R','Right',0]].map(([h,v,l])=>`<div><div class='d' style='font-size:28px'>${h}</div><button class='ftb${o.foot==v?' on':''}' data-a='ft' data-v='${v}' aria-pressed='${o.foot==v}' aria-label='${v} foot'>${FOOT(l)}</button></div>`).join('')}</div><button class='chip w${o.foot=='Both'?' on':''}' style='margin-top:14px' data-a='ft' data-v='Both' aria-pressed='${o.foot=='Both'}'>Both</button>`,1);
+if(st=='s4')return wz(4,'Your football experience','Tap the level that fits you best. It’s self-reported and you can change it any time.',`${lvh(o)}${sec('Match formats')}${cg('fmt',['5v5','6v6','7v7','8v8','9v9','11v11'],1)}${sec('Intensity')}${cg('int',['Casual','Competitive','Either'])}${sec('How often')}${cg('frq',['Occasionally','Weekly','Multiple times a week'])}`,1);
+if(st=='s5')return wz(5,'Where do you usually play?','We use this to find turfs, players and games near you. We keep only an approximate area, never your exact location.',`<button class='b w' data-a='geo'>Use my location</button><div class='mu' style='margin:12px 0 4px'>or enter it manually</div>${f('City or locality','ar')}<input id='ar' class='in' list='al' data-k='area' value='${e(o.area)}' placeholder='e.g. Koramangala, Bengaluru'><datalist id='al'>${['Koramangala, Bengaluru','Indiranagar, Bengaluru','HSR Layout, Bengaluru','Whitefield, Bengaluru'].map(x=>`<option value='${x}'>`).join('')}</datalist><div class='mu' style='margin-top:4px;font-size:12px'>Sample suggestions only. Live autocomplete and map adjustment need a places provider.</div>${sec('Search radius')}${cg('rad',[2,5,10,15,25],0,' km')}<div class='mu' style='margin-top:6px;font-size:12px'>15 km is recommended. You can change it any time.</div>`,1);
+if(st=='s6')return wz(6,'When do you want to play?','Optional. We use it to find players and teams who match your schedule.',`${sec('Days')}<div class='dy'>${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map(x=>`<button class='chip${o.days.includes(x)?' on':''}' data-a='cs' data-v='days|${x}' aria-pressed='${o.days.includes(x)}'>${x[0]}<span class='mu' style='display:none'>${x}</span></button>`).join('')}</div><div class='mu' style='margin-top:4px;font-size:12px'>${o.days.join(', ')||'No days picked'}</div>${sec('Time slots')}<div class='g2'>${[['Morning','Before 12'],['Afternoon','12 to 5'],['Evening','5 to 9'],['Late night','After 9']].map(([x,h])=>`<button class='tile tl${o.slots.includes(x)?' on':''}' data-a='cs' data-v='slots|${x}' aria-pressed='${o.slots.includes(x)}'><b>${x}</b><span class='mu'>${h}</span></button>`).join('')}</div>${sec('Max cost per player')}${cg('bud',['Up to ₹200','Up to ₹300','Up to ₹500','Any'])}${sec('Looking for')}${cg('look',['Teammates','Opponents','Both'])}`,1);
+if(st=='s7')return wz(7,'Review your profile','Looks good? Tap the pencil to change anything.',pcard(o));
+return ''}
+function tk(){clearInterval(rtI);const f=()=>{const el=$('#rs');if(!el){clearInterval(rtI);return}const s=Math.ceil((rtEnd-Date.now())/1000);if(s>0)el.textContent='Resend code in '+s+'s';else{clearInterval(rtI);el.innerHTML=`<button class='b ol' data-a='rsd'>Resend OTP</button>`}};f();rtI=setInterval(f,1000)}
+const GM=[{id:'g1',t:'Street Kings FC',u:'t1',h:20,f:'5v5',sk:'Intermediate',n:2,tot:10,org:'Imran S.',min:60,ru:'No slide tackles. Rolling subs. Keep it friendly.'},{id:'g2',t:'Midnight Strikers',u:'t2',h:20,f:'5v5',sk:'Competitive',n:1,tot:10,org:'Nisha P.',min:60,ru:'Fast pace. Goalkeeper rotates every 10 minutes.'},{id:'g3',t:'Sunday Kickers',u:'t3',h:21,f:'7v7',sk:'Beginner',n:3,tot:14,org:'Rohan M.',min:90,ru:'Beginners welcome. No heading.'},{id:'g4',t:'Green Park Regulars',u:'t4',h:19,f:'5v5',sk:'Beginner',n:0,tot:10,org:'Karan D.',min:60,ru:'Casual game, bring a light and a dark top.'}];
+const gc=g=>Math.ceil(tn(g.u).p/g.tot);
+function fp(){const f=S.fl,o=S.ob,ok=g=>(!f.f||g.f==f.f)&&(!f.sk||g.sk==f.sk)&&(!f.d||tn(g.u).d<=+f.d)&&(!f.c||gc(g)<=+f.c),sc=g=>(o.fmt.includes(g.f)?1:0)+(o.lvl==g.sk?1:0)+(S.pf.includes(g.u)?1:0),ch=(k,a,p,u)=>`<div class='rw'>${a.map(x=>`<button class='chip${f[k]==x?' on':''}' data-a='gf' data-v='${k}|${x}' aria-pressed='${f[k]==x}'>${p||''}${x}${u||''}</button>`).join('')}</div>`;
+const L=GM.filter(ok).sort((a,b)=>sc(b)-sc(a));
+return back('Find players')+DM('Sample games. Real discovery needs a backend, venue data and live spot counts. All games here are tonight, so there is no date filter yet.')+sec('Format')+ch('f',['5v5','7v7'])+sec('Skill')+ch('sk',['Beginner','Intermediate','Competitive'])+sec('Within')+ch('d',['2','5','10'],'',' km')+sec('Max per player')+ch('c',['200','250','300'],'₹')+`<h2>${L.length} game${L.length==1?'':'s'}</h2>`+(L.map(g=>{const t=tn(g.u),st=S.gj[g.id],full=g.n==0;return `<div class='cd' style='display:block'><div class='sp'><b>${e(g.t)}</b><span class='pill${full?' er':''}'>${full?'FULL':g.n+' SPOT'+(g.n>1?'S':'')+' LEFT'}</span></div><div class='mu' style='margin:4px 0 8px'>${H(g.h)} · ${t.n} · ${t.d} km · ${g.f} · ${g.sk} · ₹${gc(g)} each</div>${sc(g)?`<span class='pill f'>FITS YOUR PROFILE</span>`:''}<div class='rw' style='margin-top:8px'><button class='b ol' data-a='gd' data-v='${g.id}'>Details</button>${st=='res'?`<span class='pill f'>RESERVED</span>`:st=='wait'?`<span class='pill'>ON WAITLIST</span>`:`<button class='b' data-a='gr' data-v='${g.id}'>${full?'Join waitlist':'Reserve spot'}</button>`}</div></div>`}).join('')||`<div class='cd'>No games match these filters. Clear a filter to see more.</div>`)}
+function gmx(id){const g=GM.find(x=>x.id==id),t=tn(g.u);return `<h2 class='d' style='font-size:20px;margin:0 0 4px'>${e(g.t)}</h2><div class='mu'>${H(g.h)} tonight · ${t.n} · ${t.d} km</div><div style='margin:12px 0'>${DM('Sample game. The slot and spot count aren’t verified with the venue.')}</div><div class='cd' style='display:block;line-height:1.9'><div class='sp'><span>Organiser</span><b>${e(g.org)}</b></div><div class='sp'><span>Format</span><b>${g.f}</b></div><div class='sp'><span>Duration</span><b>${g.min} min</b></div><div class='sp'><span>Skill</span><b>${g.sk}</b></div><div class='sp'><span>Spots left</span><b>${g.n} of ${g.tot}</b></div><div class='sp'><span>Your share</span><b>₹${gc(g)}</b></div></div><p class='mu'>Rules: ${e(g.ru)}</p><p class='mu'>Payment: you pay your own share before the deadline. Sample refund rule: full refund up to 24 hours before kickoff. Holding a spot while you pay, and releasing it if you don’t, needs a server to enforce.</p>`}
+const CM={c1:{f:'5v5',sk:'Intermediate',d:1.8},c2:{f:'5v5',sk:'Competitive',d:3.4},c3:{f:'7v7',sk:'Casual',d:2.2}};
+function opr(){const q=S.or,ch=(k,a,m,p,u)=>`<div class='rw'>${a.map(x=>{const on=m?q[k].includes(x):q[k]==x;return `<button class='chip${on?' on':''}' data-a='of' data-v='${k}|${x}' aria-pressed='${on}'>${p||''}${x}${u||''}</button>`}).join('')}</div>`,sc=c=>{const m=CM[c.id];return [m.f==q.fmt,!q.sk||m.sk==q.sk,m.d<=+q.dist,S.pf.some(x=>c.pf.includes(x))].filter(Boolean).length};
+return back('Find opponents')+`<p class='mu'>Tell us what you’re after. We suggest teams that fit and you decide.</p>`+sec('Format')+ch('fmt',['5v5','6v6','7v7','8v8','9v9'])+sec('Time windows')+ch('win',['Morning','Afternoon','Evening','Late night'],1)+sec('Max travel')+ch('dist',['2','5','10','15'],0,'',' km')+sec('Skill level')+ch('sk',['Beginner','Intermediate','Competitive'])+sec('Intensity')+ch('it',['Casual','Competitive','Either'])+sec('Budget per player')+ch('bud',['200','300','500'],0,'₹')+sec('Turf already booked?')+ch('bk',['Yes','No'])+`<button class='b w' style='margin-top:20px' data-a='opub'>${S.op?'Update request':'Save request'}</button><div style='margin-top:12px'>${DM('Saved on this device only. Showing your request to other teams, and seeing theirs, needs a server. Budget and time windows aren’t used for suggestions yet.')}</div>`+(S.op?`<h2>Suggested teams (sample)</h2>`+C.map(c=>({c,s:sc(c)})).sort((a,b)=>b.s-a.s).map(({c,s})=>`<div class='cd'>${av(c.n,c.col)}<div style='flex:1'><b>${c.n}</b><div class='mu'>${CM[c.id].f} · ${CM[c.id].sk} · ${CM[c.id].d} km</div><div style='margin-top:6px'><span class='pill${s>2?' f':''}'>${s} OF 4 MATCH</span></div></div><button class='b' data-a='opp' data-v='${c.id}'>Pick turf</button></div>`).join('')+`<p class='mu'>Matching two teams doesn’t book a turf. You pick a slot next, and the venue still has to confirm it.</p>`:'')}
+const feed=()=>S.rq.filter(r=>tn(r.u).d<=(+S.ob.rad||99)).sort((a,b)=>S.pf.includes(b.u)-S.pf.includes(a.u));
+function homeX(){const o=S.ob,g=[['fp','Find Players'],['op','Find Opponents'],['pl','Find a Match'],['tu','Explore Nearby Turfs'],['cr','Create a Match'],['tm','My Team'],['bk','My Bookings'],['py','My Payments']],x=[[!o.pos.length,'s2','positions'],[!o.foot,'s3','dominant foot'],[!o.lvl,'s4','skill level'],[!o.area,'s5','playing area'],[!o.days.length,'s6','availability']].filter(a=>a[0]),ch=[o.prim,o.foot&&(o.foot=='Both'?'Both feet':o.foot+'-footed'),o.lvl,o.fmt.join(' · '),o.area&&o.rad+' km'].filter(Boolean).map(tg).join('');
+return `${ch?`<div class='rw' style='margin:16px 0 0'>${ch}</div>`:''}<div class='g2' style='margin:16px 0'>${g.map(([k,l])=>`<button class='tile' data-a='go' data-v='${k}'>${l}</button>`).join('')}</div>${x.length?`<div class='cd' style='display:block'><b>Finish your profile</b><div class='mu' style='margin:4px 0 10px'>Missing: ${x.map(a=>a[2]).join(', ')}. Adding these improves your suggestions.</div><button class='b' data-a='ed' data-v='${x[0][1]}'>Add details</button></div>`:''}`}
+const mk=(k,w,u,h)=>({k,w,u,h,ps:{me:'Pending',p1:'Paid',p2:'Pending'}});
+const ensure=m=>m.ps||(m.ps={me:'Pending',p1:'Paid',p2:'Pending'});
+const pc=m=>{ensure(m);return ['me',...S.tm].filter(i=>(m.ps[i]||'Pending')=='Paid').length+(m.cv||0)};
+const sp=s=>`<span class='pill${s=='Paid'?' f':s=='Failed'?' er':''}'>${s.toUpperCase()}</span>`;
+function hub(){const m=S.mt[S.hi];if(!m)return back('Match hub')+`<div class='cd'>Match not found.</div>`;ensure(m);
+const t=tn(m.u),ids=['me',...S.tm],pp=t.p/10,g=i=>m.ps[i]||'Pending',paid=pc(m),pend=ids.filter(i=>['Pending','Processing','Failed'].includes(g(i))).length,op=Math.max(0,4-S.tm.length),ok=paid>=5,my=g('me'),gone=my=='Cancelled'||my=='Refunded';
+const rows=ids.map(i=>{const p=i=='me'?{n:S.me.n}:pl(i);return `<div class='cd' style='padding:10px 14px'>${av(p.n)}<div style='flex:1'><b>${e(p.n)}</b><span class='mu'>${i=='me'?' · You':' · sample'}</span></div>${sp(g(i))}</div>`}).join('')+(op?`<div class='cd dash mu' style='padding:12px 14px'>${op} open spot${op>1?'s':''}</div>`:'');
+const act=(my=='Pending'||my=='Failed'?`<button class='b w' data-a='pp' data-v='me'>${my=='Failed'?'Retry payment':'Pay ₹'+pp}</button>`:my=='Processing'?`<button class='b w' disabled>Processing…</button>`:my=='Paid'?`<div class='mu'>Paid · demo reference ${e(m.rf||'')}</div>`:`<div class='mu'>Your spot is ${my.toLowerCase()}.</div>`)+(paid<5&&!gone?`<button class='b ol w' style='margin-top:8px' data-a='pp' data-v='all'>Cover unpaid shares · ₹${(5-paid)*pp}</button>`:'')+(gone?'':`<button class='b ol w' style='margin-top:8px' data-a='cx'>Cancel my spot</button>`);
+return back('Match hub')+`<div class='cd' style='display:block'><span class='pill${ok?' f':''}'>${ok?'CONFIRMED (DEMO RULE)':'AWAITING PAYMENTS'}</span><div class='d' style='font-size:18px;margin:10px 0 4px'>${m.k=='v'?'Night Owls FC vs '+e(m.w):'Playing with '+e(m.w)}</div><div class='mu'>${H(m.h)} · ${t.n} · ${t.d} km · 5v5 · sample venue, availability not verified</div></div><h2>Cost split</h2><div class='cd' style='display:block;line-height:1.9'><div class='sp'><span>Turf booking (1 hr)</span><b>₹${t.p}</b></div><div class='sp'><span>Players (5v5)</span><b>10</b></div><div class='sp'><span>Your contribution</span><b>₹${pp}</b></div><div class='sp'><span>Fees (sample)</span><b>₹0</b></div><div class='mu'>Pay by 24 hours before kickoff (sample rule).</div></div><h2>Payment summary</h2><div class='cd' style='display:block'><div class='bar'><i style='width:${paid*20}%'></i></div><div class='sp' style='margin-top:8px'><span>Collected</span><b>₹${paid*pp} of ₹${5*pp}</b></div><div class='mu'>${paid} paid · ${pend} pending · ${op} open spot${op==1?'':'s'}</div></div>${rows}<div style='margin-top:12px'>${act}</div><p class='mu' style='margin-top:16px'>If your team’s share isn’t fully paid by the deadline, the booking isn’t confirmed and paid amounts are refunded (sample policy). A booking counts as confirmed only when the venue confirms it. No venue or payment provider is connected in this demo.</p>`}
+function bk(){ensure({});const L=S.mt.map((m,i)=>{ensure(m);const t=tn(m.u),c=pc(m)>=5;return `<div class='cd'><div style='flex:1'><b>${m.k=='v'?'vs '+e(m.w):e(m.w)}</b><div class='mu'>${H(m.h)} · ${t.n}</div><div style='margin-top:6px'>${S.bkt=='pay'?sp(m.ps.me||'Pending'):`<span class='pill${c?' f':''}'>${c?'CONFIRMED (DEMO)':'AWAITING PAYMENTS'}</span>`}</div></div><button class='b' data-a='hub' data-v='${i}'>Open</button></div>`}).join('');return back(S.bkt=='pay'?'My payments':'My bookings')+(L||`<div class='cd'>Nothing here yet. Challenge a team or join a game from Play.</div>`)}
+let tt;const toast=m=>{const t=$('#ts');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2400)};
+const A={
+gf:v=>{const[k,x]=v.split('|');S.fl[k]=S.fl[k]==x?'':x},
+gd:v=>{S.sh={k:'gm',v}},
+gr:v=>{const g=GM.find(x=>x.id==v);if(g.n>0){S.gj[v]='res';S.mt.unshift(mk('j',g.t,g.u,g.h));toast('Spot reserved. Pay your share from My bookings.');burst()}else{S.gj[v]='wait';toast('You’re on the waitlist. Sending offers needs a server.')}},
+of:v=>{const[k,x]=v.split('|'),q=S.or;if(Array.isArray(q[k])){const i=q[k].indexOf(x);i<0?q[k].push(x):q[k].splice(i,1)}else q[k]=q[k]==x?'':x},
+opub:()=>{S.op=1;toast('Request saved on this device')},
+tab:v=>{S.tab=v;S.view=null;S.top=1},
+match:()=>{S.view='match';S.mm={o:null,h:20};S.top=1},
+opp:v=>{S.view='match';S.mm={o:v,h:20};S.top=1},
+back:()=>{if(S.view=='match'&&S.mm.o)S.mm.o=null;else S.view=null;S.top=1},
+hr:v=>{S.mm.h=+v},
+sv:()=>{const c=C.find(x=>x.id==S.mm.o),r=pick(c,S.mm.h);if(!r)return;S.mt.unshift(mk('v',c.n,r.t.id,S.mm.h));S.view=null;S.tab='play';S.top=1;toast('Challenge sent to '+c.n);burst()},
+join:v=>{const r=S.rq.find(x=>x.id==v);r.j=1;S.mt.unshift(mk('j',r.t,r.u,r.h));toast('You’re in for '+H(r.h));burst()},
+post:()=>{S.sh={k:'post'};S.pr={n:1,h:20}},
+pn:v=>{S.pr.n=+v},ph:v=>{S.pr.h=+v},
+sp:()=>{const r=pick({pf:S.pf},S.pr.h);if(!r)return;S.rq.unshift({id:'r'+Date.now(),t:'Night Owls FC',n:S.pr.n,h:S.pr.h,u:r.t.id,me:1});S.sh=null;toast('Request posted');burst()},
+pf:v=>{S.sh={k:'pf',v}},
+fr:v=>{S.fr.push(v);toast('Friend added')},
+tm:v=>{if(S.tm.length<4&&!S.tm.includes(v)){S.tm.push(v);toast('Added to your squad')}if(S.sh&&S.sh.k=='am'&&!S.fr.some(i=>!S.tm.includes(i)))S.sh=null},
+am:()=>{S.sh={k:'am'}},
+star:v=>{const i=S.pf.indexOf(v);i<0?S.pf.push(v):S.pf.splice(i,1);S.pp=v},
+close:()=>{S.sh=null},noop:()=>{},
+gs:()=>{S.ob.lg=0;S.ob.step='phone';S.top=1},
+li:()=>{S.ob.lg=1;S.ob.step='phone';S.top=1},
+lk:()=>{toast('Sample app: legal pages aren’t published yet');return false},
+os:v=>{S.ob.step=v;S.top=1},
+ed:v=>{S.ob.done=0;S.ob.step=v;S.top=1},
+so:()=>{S.ob.done=0;S.ob.step='welcome';S.top=1},
+del:()=>{try{localStorage.removeItem('tb')}catch(x){}location.reload();return false},
+sendotp:()=>{const o=S.ob,d=String(o.ph).replace(/[^0-9]/g,''),ok=o.cc=='+91'?/^[6-9][0-9]{9}$/.test(d):/^[0-9]{6,14}$/.test(d);if(!ok){$('#er').textContent=o.cc=='+91'?'Enter a valid 10-digit Indian mobile number.':'Enter a valid phone number.';return false}o.ph=d;rtEnd=Date.now()+30000;o.step='otp';S.top=1},
+rsd:()=>{rtEnd=Date.now()+30000;toast('New code requested (demo: nothing was sent)')},
+vf:()=>{const c=[...document.querySelectorAll('.ot')].map(i=>i.value).join('');if(c.length<6){$('#er').textContent='Enter all 6 digits.';return false}const b=$('#vb');b.disabled=true;b.textContent='Verifying…';setTimeout(()=>{const o=S.ob,k=o.cc+o.ph;if(o.acct==k&&o.n){o.done=1;S.tab='play';S.view=null;toast('Welcome back, '+o.n.split(' ')[0])}else{o.acct=k;o.step='s1';toast('Phone verified (demo)')}S.top=1;render()},700);return false},
+nx:v=>{v=+v;if(v==1&&(S.ob.n||'').trim().length<2){toast('Add a display name so teammates can find you');return false}S.ob.step=ST[v];S.top=1},
+avs:v=>{S.ob.av=+v},
+pos:v=>{S.pp=v;const o=S.ob,i=o.pos.indexOf(v);if(i<0){o.pos.push(v);if(!o.prim)o.prim=v}else{o.pos.splice(i,1);if(o.prim==v)o.prim=o.pos[0]||''}},
+prim:v=>{S.ob.prim=v},
+flx:()=>{S.ob.flex=!S.ob.flex},
+ft:v=>{S.ob.foot=S.ob.foot==v?'':v},
+cs:v=>{const[k,x]=v.split('|'),o=S.ob;if(Array.isArray(o[k])){const i=o[k].indexOf(x);i<0?o[k].push(x):o[k].splice(i,1)}else o[k]=o[k]==x?'':x},
+geo:()=>{if(!navigator.geolocation){toast('Location isn’t available here. Enter your area instead.');return false}navigator.geolocation.getCurrentPosition(()=>{S.ob.area='Near my current location (approx.)';toast('Approximate area saved');render()},()=>toast('Location permission denied. Enter your area instead.'),{timeout:8000});return false},
+fin:()=>{const o=S.ob;S.me.n=o.n.trim()||S.me.n;if(o.prim)S.me.pos=PM[o.prim];if(o.lvl)S.me.lv=['Advanced','Competitive'].includes(o.lvl)?'Competitive':'Casual';o.done=1;S.tab='play';S.view=null;S.top=1;toast('Profile saved');burst()},
+go:v=>{const G={fp:()=>{S.view='fp'},pl:()=>{S.tab='play';S.view=null;S.sc='fd'},op:()=>{S.view='opr'},tu:()=>{S.tab='turfs';S.view=null},cr:()=>{S.view='match';S.mm={o:null,h:20}},tm:()=>{S.tab='teams';S.view=null},bk:()=>{S.view='bk';S.bkt=''},py:()=>{S.view='bk';S.bkt='pay'}};G[v]();S.top=S.sc?0:1},
+hub:v=>{S.hi=+v;S.view='hub';S.top=1},
+pp:v=>{S.sh={k:'pay',w:v}},
+pay:v=>{const m=S.mt[S.hi],w=S.sh.w,ids=(w=='all'?['me',...S.tm]:['me']).filter(i=>(m.ps[i]||'Pending')!='Paid');if(ids.some(i=>m.ps[i]=='Processing'))return;ids.forEach(i=>m.ps[i]='Processing');S.sh=null;setTimeout(()=>{const ok=v=='ok';ids.forEach(i=>m.ps[i]=ok?'Paid':'Failed');if(ok){m.rf=m.rf||'DEMO-'+Math.random().toString(36).slice(2,10).toUpperCase();if(w=='all')m.cv=Math.max(0,4-S.tm.length);burst();toast('Payment recorded (demo)')}else toast('Payment failed (demo). You can retry.');render()},1300)},
+cx:()=>{const m=S.mt[S.hi];m.ps.me=m.ps.me=='Paid'?'Refunded':'Cancelled';toast(m.ps.me=='Refunded'?'Spot cancelled. A refund would be requested (demo).':'Spot cancelled')}};
+
+function render(){const m=$('main'),st=m.scrollTop;
+m.innerHTML=!S.ob.done?onb():NV[S.view]?NV[S.view]():S.view=='fp'?fp():S.view=='opr'?opr():S.view=='match'?match():S.view=='hub'?hub():S.view=='bk'?bk():({play,teams,turfs,me,tour})[S.tab]();$('nav').style.display=S.ob.done?'':'none';m.className=S.top?'go':'';[...m.children].forEach((c,i)=>c.style.setProperty('--i',Math.min(i,10)));
+$('nav').innerHTML=[['play','Play'],['teams','Teams'],['turfs','Turfs'],['tour','Cups'],['me','Me']].map(([k,l])=>{const on=S.tab==k&&!S.view;return `<button class="n${on?' on':''}" data-a="tab" data-v="${k}"${on?' aria-current="page"':''}>${ic(I[k])}${l}</button>`}).join('');
+const op=!!S.sh;$('#sh').className=op&&!wasOpen?'new':'';wasOpen=op;$('#sh').innerHTML=sheet();$('nav').className=S.top?'go':'';m.scrollTop=S.top?0:st;S.top=0;S.pp=0;if(!S.ob.done&&S.ob.step=='otp')tk();if(S.sc){const q=document.getElementById(S.sc);q&&q.scrollIntoView({behavior:RM.matches?'auto':'smooth'});S.sc=0}save()}
+
+$('#app').addEventListener('click',ev=>{const el=ev.target.closest('[data-a]');if(!el)return;const f=A[el.dataset.a];if(f&&f(el.dataset.v)!==false)render()});
+$('#app').addEventListener('change',ev=>{const k=ev.target.dataset.f;if(!k)return;const v=ev.target.value.trim();if(v){S.me[k]=v;render()}});
+document.addEventListener('keydown',ev=>{if(ev.key=='Escape'&&S.sh){S.sh=null;render()}});
+$('#app').addEventListener('input',ev=>{const t=ev.target;if(t.dataset.k!=null){S.ob[t.dataset.k]=t.value;return}if(t.dataset.o==null)return;t.value=t.value.replace(/[^0-9]/g,'').slice(-1);if(t.value&&t.nextElementSibling)t.nextElementSibling.focus()});
+$('#app').addEventListener('keydown',ev=>{const t=ev.target;if(t.dataset.o!=null&&ev.key=='Backspace'&&!t.value&&t.previousElementSibling)t.previousElementSibling.focus()});
+$('#app').addEventListener('paste',ev=>{const t=ev.target;if(t.dataset.o==null)return;ev.preventDefault();const d=(ev.clipboardData.getData('text')||'').replace(/[^0-9]/g,'').slice(0,6),r=[...t.parentNode.children];r.forEach((c,i)=>c.value=d[i]||'');r[Math.min(d.length,5)].focus()});
+// ===== Turfbook stages 2-5 =====
+const TOUR={date:'',venue:'',deadline:'',rules:''};
+const RAD=()=>+S.ob.rad||15;
+I.tour='<path d="M8 4h8v5a4 4 0 01-8 0zM8 6H4v1a4 4 0 004 4M16 6h4v1a4 4 0 01-4 4M12 13v4M8 20h8"/>';
+I.mail='<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 7 9-7"/>';
+I.pen='<path d="M4 20l4-1 11-11-3-3L5 16zM14 6l3 3"/>';
+const ft=ts=>new Date(ts).toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});
+const lim=()=>S.mt2.length>=5;
+const DS={p1:1.4,p2:3.1,p3:6.8,p4:12.5,p5:18};
+const OP=[{id:'c1',n:'Blue Street United',col:'#2A3A5C',act:4,d:1.8,sk:'Intermediate',av:'Weekday evenings'},{id:'c2',n:'Red Line FC',col:'#6B2230',act:5,d:3.4,sk:'Competitive',av:'Weekends'},{id:'c3',n:'Street Kings FC',col:'#4A3A12',act:3,d:2.2,sk:'Casual',av:'Late nights'},{id:'c4',n:'Dribble Squad',col:'#3B2A5C',act:4,d:9.5,sk:'Intermediate',av:'Weekends'}];
+const NM=[['Sana R.','CB'],['Imran S.','GK'],['Nisha P.','CM'],['Zed A.','W'],['Om K.','ST']];
+const stp=s=>`<span class='pill${s=='Accepted'||s=='Completed'?' f':s=='Declined'?' er':''}'>${s.toUpperCase()}</span>`;
+const mem=t=>`<div class='rw' style='margin-top:6px'>${NM.slice(0,t.act).map(([n,p])=>`<span class='tg'>${av(n).replace('class="av"','class="av" style="width:24px;height:24px;font-size:10px;display:inline-grid;vertical-align:middle;margin-right:4px"')}${e(n)} · ${p}</span>`).join('')}</div>`;
+function dl(){const k=S.dm,r=RAD();return (k=='mate'?P.filter(p=>DS[p.id]<=r):OP.filter(t=>t.act<5&&t.d<=r)).filter(x=>!S.dx[k+x.id])}
+function dcard(c){const k=S.dm;if(k=='mate')return `<div class='dc' id='dc'>${av(c.n,0,1)}<h2 class='d' style='margin:6px 0 0;font-size:22px'>${e(c.n)}</h2><div class='mu'>${c.tm}</div><div class='rw' style='justify-content:center;margin:10px 0'>${tg(c.pos)}${tg(c.foot)}${tg(c.lv)}</div><div>${c.pl}</div><div class='mu'>${DS[c.id]} km away · No ratings yet</div><span class='pill' style='margin-top:10px'>SAMPLE PROFILE</span></div>`;
+return `<div class='dc' id='dc'>${av(c.n,c.col,1)}<h2 class='d' style='margin:6px 0 0;font-size:22px'>${e(c.n)}</h2><div class='mu'>${c.act} of 5 players · ${5-c.act} place${5-c.act>1?'s':''} open · ${c.d} km</div><div class='rw' style='justify-content:center;margin:10px 0'>${tg(c.sk)}${tg(c.av)}</div>${mem(c)}<div class='mu' style='margin-top:8px'>No match history yet</div><span class='pill' style='margin-top:10px'>SAMPLE TEAM</span></div>`}
+function disc(){const k=S.dm,L=dl(),ch=[['mate','Teammates'],['opp','Opponents'],['team','Teams']].map(([a,l])=>`<button class='chip${k==a?' on':''}' data-a='dmo' data-v='${a}' aria-pressed='${k==a}'>${l}</button>`).join(''),lb={mate:'Show interest',opp:'Challenge',team:'Request to join'}[k];
+return back('Discover')+`<div class='rw' style='margin-bottom:10px'>${ch}</div>${DM('Sample profiles within your '+RAD()+' km radius. Real discovery needs a server.'+(k!='mate'?' Full teams are hidden.':''))}`+(L.length?`<div style='margin:14px 0;touch-action:pan-y'>${dcard(L[0])}</div><div class='rw' style='justify-content:center;gap:14px'><button class='ib' style='width:60px;height:60px' data-a='dd' data-v='s' aria-label='Skip'>${ic(I.x,26)}</button><button class='b' style='min-height:60px' data-a='dd' data-v='l'>${lb}</button></div><div class='mu' style='text-align:center;margin-top:8px'>Swipe right to ${lb.toLowerCase()}, left to skip</div>`:`<div class='cd mu' style='margin-top:14px;display:block'>No more ${k=='mate'?'players':'teams'} within ${RAD()} km. Widen your radius in setup or check back later.</div>`)}
+function addTh(k,who,st,t){S.ib.unshift({id:'i'+Date.now(),k,who,dir:'out',st,sm:1,un:0,msgs:[{f:'me',t,ts:Date.now()}]})}
+function inb(){return back('Inbox')+DM('Challenges and messages are saved on this device only. No server delivers them yet.')+(S.ib.length?S.ib.map((t,i)=>`<div class='cd' style='margin-top:10px'>${av(t.who)}<div style='flex:1;min-width:0'><b>${e(t.who)}</b> ${t.un?`<i class='bdg' style='position:static;display:inline-block'>new</i>`:''}<div class='mu' style='white-space:nowrap;overflow:hidden;text-overflow:ellipsis'>${t.dir=='in'?'Received':'Sent'} · ${e(t.msgs[t.msgs.length-1].t)}</div>${stp(t.st)}</div><button class='b ol' data-a='tho' data-v='${i}'>Open</button></div>`).join(''):`<div class='cd mu' style='margin-top:10px;display:block'>Nothing here yet. Challenge a team or message a player to start.</div>`)}
+function thr(){const t=S.ib[S.ti];if(!t)return back('Inbox')+'<div class="cd">Not found.</div>';return back(e(t.who))+`<div style='margin-bottom:8px'>${stp(t.st)} <span class='mu'>${t.sm?'Sample':''} ${t.k=='ch'?'challenge':t.k=='jr'?'join request':'conversation'}</span></div>`+(t.dir=='in'&&t.st=='Pending'?`<div class='rw' style='margin-bottom:10px'><button class='b' data-a='rsp' data-v='Accepted'>Accept</button><button class='b ol' data-a='rsp' data-v='Declined'>Decline</button></div>`:t.st=='Accepted'?`<button class='b ol' style='margin-bottom:10px' data-a='rsp' data-v='Completed'>Mark completed</button>`:'')+t.msgs.map(m=>`<div style='display:flex;justify-content:${m.f=='me'?'flex-end':'flex-start'};margin:6px 0'><div class='cd' style='display:block;margin:0;padding:8px 12px;max-width:80%;${m.f=='me'?'background:var(--ac);color:#0B0F0C;border-color:var(--ac)':''}'>${e(m.t)}<div class='mu' style='font-size:10px'>${ft(m.ts)}</div></div></div>`).join('')+`<div class='mu' style='margin:10px 0'>Phone contact is private. A call button appears only if the player chooses to share their number.</div><div style='display:flex;gap:8px'><input id='mi' class='in' placeholder='Write a message' maxlength='300' aria-label='Message'><button class='b' data-a='send'>Send</button></div>`}
+function tmg(){return back('My teams')+`<div class='mu'>${S.mt2.length} of 5 teams</div><div style='display:flex;gap:8px;margin:10px 0'><input id='tn' class='in' maxlength='24' placeholder='New team name' aria-label='Team name'><button class='b' data-a='tcr'>Create</button></div>`+(lim()?`<div class='dm'><b>Limit reached.</b> You belong to 5 teams. Leave or delete one to add another.</div>`:'')+S.mt2.map((t,i)=>{const a=t.mem.filter(m=>!m.res).length;return `<div class='cd' style='margin-top:10px'>${av(t.n,'#1F3D2C')}<div style='flex:1'><b>${e(t.n)}</b><div class='mu'>${t.own?'Owner':'Member'} · ${a}/5 active · ${t.mem.length-a} reserve · ${t.list?'Listed':'Not listed'}</div></div><button class='b ol' data-a='tmo' data-v='${i}'>Open</button></div>`}).join('')}
+function tmd(){const t=S.mt2[S.ti];if(!t)return back('Team')+'<div class="cd">Not found.</div>';const a=t.mem.filter(m=>!m.res),r=t.mem.filter(m=>m.res),row=m=>`<div class='cd' style='padding:10px 14px'>${av(m.n)}<div style='flex:1'><b>${e(m.n)}</b><div class='mu'>${m.pos||'Role not set'}${m.me?' · You':''}</div></div>${t.own&&!m.me?`<button class='b ol' data-a='tmv' data-v='${t.mem.indexOf(m)}'>${m.res?'Make active':'Reserve'}</button><button class='b ol' style='margin-left:6px' data-a='trm' data-v='${t.mem.indexOf(m)}'>Remove</button>`:''}</div>`,cand=P.filter(p=>!t.mem.some(m=>m.n==p.n));
+return back(e(t.n))+`<div class='mu'>${a.length>=5?'Full: 5 of 5 active':(5-a.length)+' active place'+(5-a.length>1?'s':'')+' open'} · ${t.list&&a.length<5?'Visible in discovery':'Hidden from discovery'}</div><h2>Active (${a.length}/5)</h2>${a.map(row).join('')}<h2>Reserves (${r.length})</h2>${r.map(row).join('')||'<div class="mu">No reserves yet.</div>'}`+(t.own?`<h2>Add players</h2>${DM('Sample players. Real invitations need accounts.')}${cand.map(p=>`<div class='cd' style='margin-top:8px'>${av(p.n)}<div style='flex:1'><b>${e(p.n)}</b><div class='mu'>${p.pos}</div></div><button class='b' data-a='tad' data-v='${p.id}|0'>Add</button><button class='b ol' style='margin-left:6px' data-a='tad' data-v='${p.id}|1'>Reserve</button></div>`).join('')}<h2>Team settings</h2><input id='tr' class='in' value='${e(t.n)}' maxlength='24' aria-label='Team name'><div class='rw' style='margin-top:10px'><button class='b' data-a='trn'>Save name</button><button class='chip${t.list?' on':''}' data-a='tls' aria-pressed='${t.list}'>List for discovery</button><button class='b ol' data-a='tdl'>Delete team</button></div>`:`<div class='rw' style='margin-top:16px'><button class='b ol' data-a='tdl'>Leave team</button></div><p class='mu'>Only the owner can change the team or remove players.</p>`)}
+function tour(){const T0=(x,l)=>x?e(x):`<span class='mu'>${l} (to be announced)</span>`,own=S.mt2.map((t,i)=>[t,i]).filter(([t])=>t.own&&t.mem.filter(m=>!m.res).length>=5),r=S.tr;
+return `<div class='hero'><div class='lab'>BY TURFBOOK · FIRST EVER</div><div class='d' style='font-size:22px'>Turfbook Tournament</div><div>Teams of 5</div></div><h2>The prizes</h2><div class='g2'><div class='cd' style='display:block'><div class='mu'>1st place</div><b class='d'>₹1,00,000</b><div class='mu'>per team</div></div><div class='cd' style='display:block'><div class='mu'>2nd place</div><b class='d'>₹50,000</b><div class='mu'>per team</div></div></div><div class='cd' style='display:block'><div class='sp'><span>Registration fee</span><b>₹1,500 per team</b></div><div class='sp'><span>Certificate</span><b>Every participating team</b></div><div class='sp'><span>Winning teams</span><b>Turfbook Pro*</b></div></div><p class='mu'>*Turfbook Pro is coming soon. Winners are intended to receive it once it launches. It is not activated today.</p><h2>Details</h2><div class='cd' style='display:block;line-height:1.9'><div class='sp'><span>Date</span><span>${T0(TOUR.date,'Date')}</span></div><div class='sp'><span>Venue</span><span>${T0(TOUR.venue,'Venue')}</span></div><div class='sp'><span>Deadline</span><span>${T0(TOUR.deadline,'Deadline')}</span></div><div class='sp'><span>Rules</span><span>${T0(TOUR.rules,'Rules')}</span></div></div><h2>Register your team</h2>`+(r?`<div class='cd' style='display:block'><b>${e(r.team)}</b><div class='mu' style='margin-top:4px'>${e(r.st)}</div></div>`:own.length?`<div class='mu'>Choose a team with 5 active players.</div><div class='rw' style='margin:8px 0'>${own.map(([t,i])=>`<button class='chip${S.trs==i?' on':''}' data-a='trs' data-v='${i}' aria-pressed='${S.trs==i}'>${e(t.n)}</button>`).join('')}</div><button class='b w' data-a='trg'>Request registration · ₹1,500</button>`:`<div class='cd mu' style='display:block'>You need a team you own with 5 active players. Build one in My teams.</div><button class='b ol' style='margin-top:8px' data-a='go2' data-v='tmg'>Open My teams</button>`)+`<div class='dm' style='margin-top:10px'><b>Payment not connected.</b> Requesting registration saves your request on this device only. You are registered only after a verified online payment, which needs a payment provider and a server.</div><h2>Updates</h2><div class='cd mu'>No updates yet.</div>`}
+const turfList=()=>[...T].filter(t=>t.d<=RAD()).sort(byd);
+function turfs(){const L=turfList();return `<h1 class='d' style='font-size:22px;margin:4px 0'>Nearby turfs</h1><div class='mu'>Within ${RAD()} km · tap a turf for photos, reviews and slots</div><h2></h2>`+(L.map(t=>`<div class='cd'><div style='flex:1'><b>${t.n}</b><div class='mu'>${t.d} km · ${t.in?'Indoor':'Outdoor'} · from ₹${t.p}/hr</div></div><button class='ib' data-a='star' data-v='${t.id}' aria-label='Favourite' aria-pressed='${S.pf.includes(t.id)}'>${ic(I.star,20,S.pf.includes(t.id))}</button><button class='b ol' data-a='tfo' data-v='${t.id}'>View</button></div>`).join('')||`<div class='cd mu'>No turfs within ${RAD()} km.</div>`)}
+function cl(){return back('Classic (Your Own Match)')+`<p class='mu'>You already have your players and opponents. Just pick a turf and a time.</p>`+DM('Sample turfs. Real availability and booking need a turf-provider integration.')+turfList().map(t=>`<div class='cd' style='margin-top:10px'><div style='flex:1'><b>${t.n}</b><div class='mu'>${t.d} km · ${t.in?'Indoor':'Outdoor'} · ₹${t.p}/hr</div></div><button class='b' data-a='tfo' data-v='${t.id}'>Choose</button></div>`).join('')}
+function tf(){const t=tn(S.tt);if(!t)return back('Turf')+'<div class="cd">Not found.</div>';const h=S.ts||t.s[0];return back(t.n)+`<div class='cd' style='display:grid;place-items:center;min-height:140px;color:var(--mu);text-align:center'>${ic('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M21 16l-5-5-8 8"/>',34)}<div>No photos added yet</div></div><div class='mu'>${t.d} km · ${t.in?'Indoor':'Outdoor'} · Facilities: not listed yet</div><h2>Pick a time</h2><div class='rw'>${t.s.map(x=>`<button class='chip${x==h?' on':''}' data-a='tsl' data-v='${x}' aria-pressed='${x==h}'>${H(x)}</button>`).join('')}</div><div class='cd' style='display:block;margin-top:12px;line-height:1.9'><div class='sp'><span>Price</span><b>₹${t.p}/hr</b></div><div class='sp'><span>Plus discount</span><span class='mu'>${S.sb.st=='verified'?'5–10% applied':'Not active · verify a college email'}</span></div></div><p class='mu'>Terms: demo only. Availability is not verified and nothing is charged.</p><button class='b w' data-a='tbk'>Request this slot</button><h2>Reviews</h2><div class='cd mu' style='display:block'>No reviews yet. Real reviews, photos and moderation need accounts and a server.</div>`}
+function rev(){const g=(t,s)=>`<h2>${t}</h2><div class='cd mu' style='display:block'>${s}</div>`;return back('Matches & reviews')+`<h2>Recent matches</h2>`+(S.mt.length?S.mt.slice(0,5).map(m=>`<div class='cd'><div style='flex:1'><b>${e(m.w)}</b><div class='mu'>${H(m.h)} · ${tn(m.u).n}</div></div><span class='pill'>UPCOMING</span></div>`).join(''):`<div class='cd mu'>No matches yet.</div>`)+`<p class='mu'>Completed matches and opponent ratings appear here after real matches finish. None are shown until then.</p><div class='mu' style='margin-top:14px'>Reviews are shown in this order: mutual friends, then friends, then players within ${RAD()} km.</div>`+g('Mutual friends','No reviews yet. Needs a connections service to know real mutual friends.')+g('Friends','No reviews yet.')+g('Nearby ('+RAD()+' km)','No reviews yet. Reviews will have report buttons once they exist.')}
+function sub(){const s=S.sb,tier=(n,p,c,x)=>`<div class='cd' style='display:block${c?';border-color:var(--at)':''}'><div class='sp'><b class='d' style='font-size:16px'>${n}</b>${c?`<span class='pill f'>YOUR TIER</span>`:''}</div><div class='mu' style='margin:4px 0 8px'>${p}</div>${x}</div>`;
+return back('Subscription')+tier('Turfbook Free','The standard Turfbook experience, included for everyone.',1,'')+tier('Turfbook Plus','For verified college email addresses.',0,`<ul class='mu' style='padding-left:18px;margin:0 0 10px'><li>College-email verification</li><li>Faster priority on eligible actions</li><li>5–10% cheaper eligible bookings</li><li>No money changes for turf payments made before and after through the app (exact payment flow to be confirmed)</li></ul><div>Status: ${s.st=='verified'?'<b>Verified</b>':s.st=='pending'?'Pending ('+e(s.em)+'). A code must be emailed by a server. Plus is still locked.':'Not verified. Plus benefits are off.'}</div><input id='ce' class='in' type='email' placeholder='you@college.edu.in' value='${e(s.em||'')}' style='margin:8px 0' aria-label='College email'><button class='b w' data-a='cev'>Verify college email</button>`)+tier('Turfbook Pro','Coming soon. Not for sale yet, features to be announced.',0,`<button class='b w' disabled>Coming soon</button>`)}
+function hdr(){const n=S.ib.filter(x=>x.un).length,h=$('#hd');h.style.display=S.ob.done?'flex':'none';h.innerHTML=`<button class='lgb' data-a='go2' data-v='sub' aria-label='Turfbooked subscription'><span class='d'>turf<span style='color:var(--at)'>booked</span></span></button><button class='ib' style='position:relative' data-a='go2' data-v='inb' aria-label='Inbox${n?', '+n+' unread':''}'>${ic(I.mail,20)}${n?`<i class='bdg'>${n}</i>`:''}</button>`}
+const NV={disc,inb,thr,tmg,tmd,cl,tf,rev,sub};
+homeX=()=>{const g=[['cl','Classic (Your Own Match)','Book a turf only',I.turfs],['mate','Find Teammates','Swipe players',I.me],['opp','Find Opponents','Challenge teams',I.star],['tmg','Teams','Create & manage',I.teams],['turfs','Nearby Turfs','Photos & slots',I.turfs],['tour','Tournaments','₹1,00,000 prize',I.tour]];return `<div class='g2' style='margin:16px 0'>${g.map(([k,l,s,p])=>`<button class='ht' data-a='hm' data-v='${k}'>${ic(p,24)}<b>${l}</b><span class='mu'>${s}</span></button>`).join('')}</div><div class='rw' style='margin-bottom:8px'><button class='chip' data-a='go' data-v='fp'>Find a match</button><button class='chip' data-a='go' data-v='bk'>Bookings</button><button class='chip' data-a='go2' data-v='rev'>Matches & reviews</button></div>`};
+Object.assign(A,{
+hm:v=>{S.top=1;if(v=='turfs'||v=='tour'){S.tab=v;S.view=null}else if(v=='mate'||v=='opp'||v=='team'){S.dm=v;S.view='disc'}else S.view=v},
+go2:v=>{S.vp=S.view;S.view=v;S.top=1},dmo:v=>{S.dm=v},
+dd:v=>{const c=dl()[0],k=S.dm;if(!c||S.dx[k+c.id])return false;if(v=='l'){if(k=='team'&&lim()){toast('You already belong to 5 teams. Leave one first.');return false}S.dx[k+c.id]='l';if(k=='mate'){addTh('msg',c.n,'Sent','Hi '+c.n.split(' ')[0]+', I’d like to play with you.');toast('Interest sent to '+c.n)}else if(k=='opp'){addTh('ch',c.n,'Pending','Challenge: let’s play a 5v5.');toast('Challenge sent to '+c.n)}else{addTh('jr',c.n,'Pending','Request to join '+c.n+'.');toast('Request sent to '+c.n)}}else{S.dx[k+c.id]='s';toast('Skipped')}},
+tho:v=>{S.ti=+v;S.ib[S.ti].un=0;S.view='thr';S.top=1},
+rsp:v=>{S.ib[S.ti].st=v;toast('Marked '+v.toLowerCase())},
+send:()=>{const t=$('#mi').value.trim();if(!t){toast('Type a message first');return false}S.ib[S.ti].msgs.push({f:'me',t,ts:Date.now()});S.top=0},
+tcr:()=>{const n=$('#tn').value.trim();if(n.length<2){toast('Give your team a name (2+ letters)');return false}if(lim()){toast('Limit reached: you can belong to 5 teams.');return false}S.mt2.push({id:'m'+Date.now(),n,own:1,list:0,mem:[{n:S.me.n,pos:S.me.pos,me:1}]});toast('Team created')},
+tmo:v=>{S.ti=+v;S.view='tmd';S.top=1},
+tad:v=>{const[id,r]=v.split('|'),t=S.mt2[S.ti],p=pl(id);if(!t.own||t.mem.some(m=>m.n==p.n))return false;if(r=='0'&&t.mem.filter(m=>!m.res).length>=5){toast('Team is full (5 active). Add as a reserve instead.');return false}t.mem.push({n:p.n,pos:p.pos,res:r=='1'});toast(p.n+(r=='1'?' added as reserve':' added'))},
+trm:v=>{const t=S.mt2[S.ti];if(t.own){t.mem.splice(+v,1);toast('Player removed')}},
+tmv:v=>{const t=S.mt2[S.ti],m=t.mem[+v];if(!t.own)return false;if(m.res&&t.mem.filter(x=>!x.res).length>=5){toast('Team is full (5 active).');return false}m.res=!m.res},
+tls:()=>{const t=S.mt2[S.ti];if(t.own)t.list=!t.list},
+trn:()=>{const n=$('#tr').value.trim();if(n.length<2){toast('Name is too short');return false}S.mt2[S.ti].n=n;toast('Name saved')},
+tdl:()=>{S.mt2.splice(S.ti,1);S.view='tmg';toast('Team removed from your list')},
+trs:v=>{S.trs=+v},
+trg:()=>{const t=S.mt2[S.trs];if(!t){toast('Choose a team first');return false}S.tr={team:t.n,st:'Request saved on this device. Payment of ₹1,500 is not connected, so you are NOT registered yet.'}},
+tfo:v=>{S.vp=S.view;S.tt=v;S.ts=0;S.view='tf';S.top=1},tsl:v=>{S.ts=+v},
+tbk:()=>{const t=tn(S.tt),h=S.ts||t.s[0];S.mt.unshift(mk('j','Own match',t.id,h));S.view=null;S.tab='play';S.top=1;toast('Booking request saved (demo). Not confirmed.')},
+cev:()=>{const m=$('#ce').value.trim();if(!/^[^@\s]+@[^@\s]+\.(edu|ac\.[a-z]{2}|edu\.[a-z]{2})$/i.test(m)){toast('Enter a valid college email (.edu, .ac.in, .edu.in)');return false}S.sb={em:m,st:'pending'};toast('Saved. Verification needs a server to email a code.')},
+ep:()=>{S.sh={k:'ep'}},avr:()=>{delete S.ob.img}});
+const _bk=A.back;A.back=()=>{if(S.view=='thr')S.view='inb';else if(S.view=='tmd')S.view='tmg';else if(S.view=='tf')S.view=S.vp||null;else return _bk();S.top=1};
+const _sh=sheet;sheet=function(){if(!(S.sh&&S.sh.k=='ep'))return _sh();const o=S.ob;return `<div class='ov' data-a='close'><div class='sh' data-a='noop' role='dialog' aria-modal='true' aria-label='Edit profile'><button class='ib x' data-a='close' aria-label='Close'>${ic(I.x,20)}</button><h2 class='d' style='font-size:20px;margin:0 0 6px'>Edit profile</h2><label class='mu' for='en'>Name</label><input id='en' class='in' data-k='n' value='${e(o.n)}' maxlength='20'>${sec('Positions')}${cg('pos',PS.map(p=>p[0]),1)}${sec('Preferred foot')}${cg('foot',['Left','Right','Both'])}${sec('Skill level')}${cg('lvl',['Beginner','Intermediate','Advanced','Competitive'])}${sec('Days')}${cg('days',['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],1)}${sec('Time slots')}${cg('slots',['Morning','Afternoon','Evening','Late night'],1)}<button class='b w' style='margin-top:16px' data-a='close'>Done</button></div></div>`};
+const pcard=o=>`<div class='pcd'><button class='ib pen' data-a='ep' aria-label='Edit profile'>${ic(I.pen,20)}</button><div class='sq' style='background:${AVC[o.av]||AVC[0]}'>${o.img?`<img src='${o.img}' alt='Your photo'>`:e(ini(o.n||'You'))}</div><div class='d' style='font-size:22px;margin-top:12px'>${e(o.n||'Your name')}</div><div class='rw' style='margin:8px 0'>${o.pos.length?[...new Set(o.pos)].map(c=>tg(c+(c==o.prim?' ★':''))).join(''):tg('Position: not set')}${tg(o.foot?o.foot+' foot':'Foot: not set')}${tg(o.lvl||'Level: not set')}</div><div class='mu'>${o.area?e(o.area)+' · within '+o.rad+' km':'Area not set'}</div><div class='mu'>${o.days.concat(o.slots).join(', ')||'Availability not set'}</div></div>`;
+const LV=[['Beginner','New to football or playing for fun'],['Intermediate','Comfortable passing and positioning, plays regularly'],['Advanced','Strong all-round, plays organised matches'],['Competitive','Tournament or league level']];
+const lvh=o=>`<div style='display:grid;gap:8px'>${LV.map(([n,d],i)=>`<button class='lv${o.lvl==n?' on':''}' data-a='cs' data-v='lvl|${n}' aria-pressed='${o.lvl==n}'><span class='stp'>${[0,1,2,3].map(j=>`<i style='height:${8+j*7}px' class='${j<=i?'o':''}'></i>`).join('')}</span><span><b>${n}</b><br><span class='mu'>${d}</span></span></button>`).join('')}</div>`;
+const _fin=A.fin;A.fin=v=>{const b=document.querySelector("[data-a='fin']");if(RM.matches||!b||!b.animate)return _fin(v);try{b.disabled=true;const r=b.getBoundingClientRect(),W=innerWidth,y=r.top+r.height/2,o=document.createElement('div');o.setAttribute('aria-hidden','true');o.style.cssText='position:fixed;inset:0;z-index:30;background:#0A1020;opacity:0;display:grid;place-items:center;color:#F4F7F2';o.innerHTML=`<div class='d' style='font-size:36px;clip-path:inset(0 100% 0 0)'>turf<span style='color:#C8FF2E'>booked</span></div>`;const bl=document.createElement('div');bl.style.cssText=`position:fixed;z-index:31;left:${r.left+r.width/2-26}px;top:${y-26}px;pointer-events:none`;bl.innerHTML=BALL;document.body.append(o,bl);b.animate([{transform:'scale(1)',opacity:1},{transform:'scale(.2)',opacity:0}],{duration:250,fill:'forwards'});o.animate([{opacity:0},{opacity:1}],{duration:400,fill:'forwards'});const d=W+80-r.left,ease='cubic-bezier(.4,0,.6,1)';bl.animate([{transform:'translate(0,0) scale(.4)'},{transform:`translate(${d*.15}px,-70px) scale(1)`,offset:.2},{transform:`translate(${d}px,0) scale(1)`}],{duration:1100,delay:250,easing:ease,fill:'forwards'});bl.firstChild.animate([{transform:'rotate(0)'},{transform:`rotate(${d/163*360}deg)`}],{duration:1100,delay:250,easing:ease,fill:'forwards'});o.firstChild.animate([{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0 0 0)'}],{duration:900,delay:400,easing:'ease-out',fill:'forwards'});setTimeout(()=>{o.remove();bl.remove();_fin(v);render()},2100);return false}catch(x){return _fin(v)}};
+const _r=render;render=function(){_r();hdr()};
+$('#app').addEventListener('change',ev=>{const t=ev.target;if(t.id!='avf')return;const fl=t.files[0],er=$('#er');if(!fl)return;if(!/^image\/(png|jpe?g|webp|gif)$/.test(fl.type)){er.textContent='Please choose a PNG, JPG or WebP image.';return}if(fl.size>5e6){er.textContent='That image is over 5 MB. Choose a smaller one.';return}const r=new FileReader();r.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=160;const s=Math.min(im.width,im.height);c.getContext('2d').drawImage(im,(im.width-s)/2,(im.height-s)/2,s,s,0,0,160,160);S.ob.img=c.toDataURL('image/jpeg',.85);render()};im.onerror=()=>{er.textContent='We could not read that image. Try another.'};im.src=r.result};r.onerror=()=>{er.textContent='Upload failed. Try again.'};r.readAsDataURL(fl)});
+(()=>{let sx=0,el=null;const a=$('#app');a.addEventListener('pointerdown',ev=>{el=ev.target.closest('#dc');if(el)sx=ev.clientX});a.addEventListener('pointermove',ev=>{if(!el)return;const d=ev.clientX-sx;el.style.transition='none';el.style.transform=`translateX(${d}px) rotate(${d/18}deg)`});const end=ev=>{if(!el)return;const d=ev.clientX-sx,c=el;el=null;if(Math.abs(d)>90){c.style.transition='transform .25s,opacity .25s';c.style.transform=`translateX(${d>0?500:-500}px)`;c.style.opacity=0;setTimeout(()=>{A.dd(d>0?'l':'s');render()},220)}else{c.style.transition='transform .2s';c.style.transform=''}};a.addEventListener('pointerup',end);a.addEventListener('pointercancel',end)})();
+
+render();
+</script>
+</body>
+</html>
