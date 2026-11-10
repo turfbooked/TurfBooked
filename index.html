@@ -159,6 +159,14 @@ button.av{cursor:pointer;border:0}.av.sel{outline:3px solid var(--at);outline-of
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const $=s=>document.querySelector(s);
+const TURFBOOKED_SUPABASE_URL = 'https://iwdblplvcgnzxkxztbcs.supabase.co';
+
+const TURFBOOKED_SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_uDac8Js7BiRvNBVeZMUOdQ_5cFnXW_U';
+
+const turfbookedSupabase = window.supabase.createClient(
+  TURFBOOKED_SUPABASE_URL,
+  TURFBOOKED_SUPABASE_PUBLISHABLE_KEY
+);
 const e=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const H=n=>(n>12?n-12:n)+(n<12?' AM':' PM');
 const T=[{id:'t1',n:'Turf One Arena',d:1.2,in:1,s:[19,20,21],p:2400},{id:'t2',n:'Goal Box Indoor',d:2.8,in:1,s:[18,20],p:2000},{id:'t3',n:'Kickoff Dome',d:3.5,in:1,s:[20,21,22],p:2800},{id:'t4',n:'Green Park Outdoor',d:0.9,in:0,s:[18,19,20,21],p:1600}];
